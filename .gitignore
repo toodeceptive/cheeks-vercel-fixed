@@ -10,3 +10,8 @@ AUDIT_REPORT.md
 # OS/editor noise
 Thumbs.db
 .DS_Store
+
+node_modules/
+package-lock.json
+package.json
+
