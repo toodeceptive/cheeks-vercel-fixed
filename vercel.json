@@ -1,3 +1,52 @@
 {
-    "$schema":  "https://openapi.vercel.sh/vercel.json"
+    "$schema":  "https://openapi.vercel.sh/vercel.json",
+    "rewrites":  [
+                     {
+                         "source":  "/favicon.ico",
+                         "destination":  "/assets/images/favicon.png"
+                     },
+                     {
+                         "source":  "/apple-touch-icon.png",
+                         "destination":  "/assets/images/apple-touch-icon.png"
+                     },
+                     {
+                         "source":  "/site.webmanifest",
+                         "destination":  "/site.webmanifest"
+                     }
+                 ],
+    "headers":  [
+                    {
+                        "source":  "/(.*)",
+                        "headers":  [
+                                        {
+                                            "key":  "Content-Security-Policy",
+                                            "value":  "default-src \u0027self\u0027; base-uri \u0027self\u0027; object-src \u0027none\u0027; frame-ancestors \u0027none\u0027; script-src \u0027self\u0027; style-src \u0027self\u0027; img-src \u0027self\u0027 data: https:; font-src \u0027self\u0027 data:; connect-src \u0027self\u0027 https://vitals.vercel-insights.com; upgrade-insecure-requests"
+                                        },
+                                        {
+                                            "key":  "X-Content-Type-Options",
+                                            "value":  "nosniff"
+                                        },
+                                        {
+                                            "key":  "X-Frame-Options",
+                                            "value":  "DENY"
+                                        },
+                                        {
+                                            "key":  "Referrer-Policy",
+                                            "value":  "strict-origin-when-cross-origin"
+                                        },
+                                        {
+                                            "key":  "Permissions-Policy",
+                                            "value":  "geolocation=(), microphone=(), camera=()"
+                                        },
+                                        {
+                                            "key":  "Cross-Origin-Opener-Policy",
+                                            "value":  "same-origin"
+                                        },
+                                        {
+                                            "key":  "Cross-Origin-Resource-Policy",
+                                            "value":  "same-origin"
+                                        }
+                                    ]
+                    }
+                ]
 }

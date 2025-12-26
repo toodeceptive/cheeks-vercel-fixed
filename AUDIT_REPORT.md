@@ -1,6 +1,6 @@
 ﻿# Cheeks Bar & Grill - Build Audit
 
-Generated: 2025-12-25 18:44:58
+Generated: 2025-12-25 19:11:59
 
 ## Required files present
 - index.html
@@ -24,8 +24,7 @@ Generated: 2025-12-25 18:44:58
 - **og:image png**: PASS - found='https://cheeks-bar-and-grill.vercel.app/assets/images/og.png' expected='https://cheeks-bar-and-grill.vercel.app/assets/images/og.png'
 
 ## Schema.org JSON-LD
-- **streetAddress=58241**: PASS - JSON-LD contains correct streetAddress
-- **no old address**: PASS - JSON-LD contains no '158241'
+- JSON-LD: NOT FOUND
 
 ## Speed Insights (static)
 - **tag present in HTML**: PASS - contains '/_vercel/speed-insights/script.js'
@@ -39,10 +38,10 @@ Generated: 2025-12-25 18:44:58
 - **hero tag closes**: PASS - first ~600 chars after hero src contains a closing '>'
 
 ## Local file hashes (progress tracking)
-- index.html: sha256=bc79c50c42754bf272ae40118e451fbbf1ee8f71791668a13da71f05aff8fc54
+- index.html: sha256=cb6e935fa2919fcaa67af2ad1b9471add5bafc3d5e986c79dab277ab6ae268b2
 - robots.txt: sha256=2ada36e4fb99826a98585b76ec8f19f3a7b7dd3ba87e0ac1704f948ebc4c1a23
 - sitemap.xml: sha256=71d5797bbb15fcf8171e1bbbc2c3fd0945ef91e1829c0efb6974e748ebbef26e
-- vercel.json: sha256=57bad824fbb59a3e875fd392cb69a66dc143f499ed8c4f68e9691de11ffd03b4
+- vercel.json: sha256=d5b225d610159ad41eee9409d1e8e303966fd36b73b4ee443e659449cc005e11
 
 ## Live checks
 - **live HTML has SI tag**: PASS - served HTML includes speed insights tag

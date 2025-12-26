@@ -164,3 +164,16 @@
 
   MANIFEST.forEach(addTile);
 })();
+
+/* Hero fallback (replaces inline onerror so CSP can be strict) */
+document.addEventListener("DOMContentLoaded", function () {
+  var hero = document.getElementById("heroImg");
+  if (!hero) return;
+  hero.addEventListener("error", function () {
+    try {
+      var frame = hero.closest(".media-frame");
+      if (frame) frame.classList.add("noimg");
+      hero.remove();
+    } catch (e) { /* noop */ }
+  }, { once: true });
+});
