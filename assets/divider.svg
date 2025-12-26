@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="44" viewBox="0 0 1200 44" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0B15B" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#E0B15B" stop-opacity="0.65"/>
+      <stop offset="0.5" stop-color="#E0B15B" stop-opacity="0.95"/>
+      <stop offset="0.82" stop-color="#E0B15B" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#E0B15B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- left / right lines -->
+  <path d="M24 22H500" stroke="url(#g)" stroke-width="2"/>
+  <path d="M700 22H1176" stroke="url(#g)" stroke-width="2"/>
+
+  <!-- center ornament -->
+  <path d="M600 6
+           C610 12 616 16 624 22
+           C616 28 610 32 600 38
+           C590 32 584 28 576 22
+           C584 16 590 12 600 6Z"
+        stroke="#E0B15B" stroke-opacity="0.9" stroke-width="2" fill="none" />
+  <circle cx="600" cy="22" r="3" fill="#E0B15B" fill-opacity="0.9"/>
+</svg>

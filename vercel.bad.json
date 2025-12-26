@@ -1,0 +1,7 @@
+﻿{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/assets/images/hero.webp", "destination": "/assets/images/hero.png", "permanent": true },
+    { "source": "/assets/images/og.webp",   "destination": "/assets/images/og.png",   "permanent": true }
+  ]
+}

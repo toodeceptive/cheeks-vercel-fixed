@@ -1,0 +1,4 @@
+PERF BUDGET NOTES
+index.html: 13237 bytes (budget 46080) => PASS
+styles.css: 8810 bytes (budget 35840) => PASS
+app.js: 5285 bytes (budget 35840) => PASS
