@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Request Received | Cheeks Bar & Grill</title>
+  <meta name="robots" content="noindex,follow" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">&#x1F37B;</span>
+        <div class="brand-text">
+          <div class="brand-name">Cheeks Bar and Grill</div>
+          <div class="brand-tag">Wausau, Wisconsin</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <div class="navlinks">
+          <a href="/">Home</a>
+          <a class="pill" href="tel:+17153934026">(715) 393-4026</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="main" role="main">
+    <section class="section">
+      <div class="wrap">
+        <h1>Request received ✅</h1>
+        <p class="lead">Thanks for reaching out. We’ll contact you soon to confirm details.</p>
+
+        <div class="card" style="margin-top:14px">
+          <p style="margin:0 0 6px"><strong>Your reference ID:</strong> <span id="ref">—</span></p>
+          <p class="muted" style="margin:0">Not booked until deposit is paid.</p>
+        </div>
+
+        <div class="cta-grid" style="margin-top:16px">
+          <a class="btn btn-primary" href="tel:+17153934026">Call to finalize</a>
+          <a class="btn btn-secondary" href="/">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      try {
+        var u = new URL(window.location.href);
+        var id = u.searchParams.get('id');
+        document.getElementById('ref').textContent = id ? id : '—';
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>
