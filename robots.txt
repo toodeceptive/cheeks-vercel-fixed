@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://cheeks-bar-and-grill.vercel.app/sitemap.xml
