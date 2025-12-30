@@ -24,13 +24,12 @@
     });
   }
 
-  // Gallery manifest (edit this list as you add images)
-  // To add images: place .webp files in /assets/images/ and add entries below
+  // Gallery manifest - images from Cheeks Bar & Grill
   // Images will automatically load if they exist, or be skipped if missing
   const MANIFEST = [
     { src: "/assets/images/sign.webp", label: "Cheeks Bar & Grill Sign" },
-    { src: "/assets/images/food.webp", label: "Food" },
-    { src: "/assets/images/chef.webp", label: "Chef" },
+    { src: "/assets/images/food-basket.webp", label: "Food" },
+    { src: "/assets/images/chef-chili.webp", label: "Chef" },
     { src: "/assets/images/staff.webp", label: "Staff" },
     { src: "/assets/images/interior.webp", label: "Interior" },
     { src: "/assets/images/patrons.webp", label: "Patrons" }
