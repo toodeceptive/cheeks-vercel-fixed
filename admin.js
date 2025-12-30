@@ -82,7 +82,12 @@
   $('fillBtn')?.addEventListener('click', ()=>{
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const dateStr = tomorrow.toISOString().split('T')[0];
+    // Use local timezone formatting to avoid UTC conversion issues
+    // (e.g., 9 PM PST on Dec 30 should show Dec 31, not Jan 1)
+    const y = tomorrow.getFullYear();
+    const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const d = String(tomorrow.getDate()).padStart(2, '0');
+    const dateStr = y + '-' + m + '-' + d;
     
     if ($('src')) $('src').value = 'demo';
     if ($('name')) $('name').value = 'Test Customer';

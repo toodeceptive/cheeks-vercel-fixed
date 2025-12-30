@@ -22,17 +22,23 @@ function bad(res, code, msg) {
 /**
  * Constant-time string comparison to prevent timing attacks.
  * Returns true if strings are equal, false otherwise.
- * Always compares all characters regardless of early differences.
+ * Always performs the same operations regardless of length differences
+ * to prevent attackers from determining the expected token length.
  */
 function constantTimeEquals(a, b) {
-  if (a.length !== b.length) {
-    return false;
-  }
+  // Use the maximum length to ensure we always perform the same number of operations
+  const maxLen = Math.max(a.length, b.length);
   let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  
+  // Always iterate through maxLen to prevent length-based timing leaks
+  for (let i = 0; i < maxLen; i++) {
+    const aChar = i < a.length ? a.charCodeAt(i) : 0;
+    const bChar = i < b.length ? b.charCodeAt(i) : 0;
+    result |= aChar ^ bChar;
   }
-  return result === 0;
+  
+  // Check both length equality and character equality
+  return result === 0 && a.length === b.length;
 }
 
 function requiredStr(v, maxLen) {
