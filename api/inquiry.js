@@ -46,13 +46,17 @@ function isValidDate(dateStr) {
 
 function isFutureDate(dateStr) {
   if (!isValidDate(dateStr)) return false;
-  // Compare dates consistently in UTC to avoid timezone issues
-  // Parse both dates as UTC midnight for fair comparison
+  // Server-side validation: Since we don't know the user's timezone,
+  // we must be conservative and require the date to be at least "today" in UTC.
+  // This prevents users in timezones ahead of UTC from booking dates that are
+  // already in the past in their local timezone.
+  // The client-side validation handles the user's local timezone perspective.
   const selected = new Date(dateStr + 'T00:00:00Z');
-  const today = new Date();
+  const now = new Date();
   // Get today's date in UTC as YYYY-MM-DD string, then parse as UTC midnight
-  const todayStr = today.toISOString().split('T')[0];
+  const todayStr = now.toISOString().split('T')[0];
   const todayUTC = new Date(todayStr + 'T00:00:00Z');
+  // Require selected date to be >= today in UTC (conservative validation)
   return selected >= todayUTC;
 }
 

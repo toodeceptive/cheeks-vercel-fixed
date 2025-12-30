@@ -233,17 +233,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Validate date is not in the past (timezone-safe)
+    // Validate date is not in the past (using user's local timezone)
     var dateEl = document.getElementById("eventDate");
     if (dateEl && dateEl.value) {
-      // Compare dates consistently in UTC to avoid timezone issues
-      // Parse selected date as UTC midnight
-      var selected = new Date(dateEl.value + "T00:00:00Z");
-      // Get today's date in UTC as YYYY-MM-DD string, then parse as UTC midnight
+      // Compare dates in user's local timezone to match their perspective
+      // Parse selected date as local midnight
+      var selected = new Date(dateEl.value + "T00:00:00");
+      // Get today's date in local timezone
       var today = new Date();
-      var todayStr = today.toISOString().split("T")[0];
-      var todayUTC = new Date(todayStr + "T00:00:00Z");
-      if (selected < todayUTC) {
+      today.setHours(0, 0, 0, 0);
+      if (selected < today) {
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
         return;
