@@ -227,13 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var today = new Date();
     // Get today's date in UTC (YYYY-MM-DD format)
     var todayStr = today.toISOString().split("T")[0];
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:237',message:'Date picker min set (UTC)',data:{todayLocal:today.toString(),todayUTC:todayStr,timezoneOffset:today.getTimezoneOffset()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     dateEl.setAttribute("min", todayStr);
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:240',message:'Min attribute after set',data:{minValue:dateEl.getAttribute('min')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
   }
 
   // Deposit hint for 13+ guests
@@ -282,15 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var today = new Date();
       var todayStr = today.toISOString().split("T")[0];
       var todayUTC = new Date(todayStr + "T00:00:00Z");
-      
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:282',message:'Date validation',data:{dateValue:dateEl.value,selectedUTC:selected.toISOString(),todayUTC:todayUTC.toISOString(),isValid:selected >= todayUTC},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      // #endregion
-      
       if (selected < todayUTC) {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:287',message:'Date validation failed',data:{selectedUTC:selected.toISOString(),todayUTC:todayUTC.toISOString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
         return;
