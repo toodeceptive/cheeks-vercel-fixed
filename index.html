@@ -82,7 +82,19 @@
   <header class="site-header" role="banner">
     <div class="wrap header-inner">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">&#x1F37B;</span>
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="url(#brandGradient)"/>
+            <path d="M20 10C15 10 12 13 12 18c0 5 3 8 6 8s6-3 6-8c0-5-3-8-6-8z" fill="rgba(255,255,255,.9)"/>
+            <path d="M15 25c-2 0-3.5 1.5-3.5 3.5V32h17v-3.5c0-2-1.5-3.5-3.5-3.5H15z" fill="rgba(255,255,255,.8)"/>
+            <defs>
+              <linearGradient id="brandGradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="rgba(224,177,91,.25)"/>
+                <stop offset="100%" stop-color="rgba(224,177,91,.08)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
         <div class="brand-text">
           <div class="brand-name">Cheeks Bar and Grill</div>
           <div class="brand-tag">Wausau, Wisconsin</div>
@@ -165,13 +177,17 @@
           <div class="directions-icons">
             <a href="https://www.google.com/maps/search/?api=1&query=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403" target="_blank" rel="noopener" class="map-icon map-icon-google" aria-label="Open in Google Maps">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                <rect width="24" height="24" rx="5" fill="#4285F4"/>
+                <path d="M12 4C8.13 4 5 7.13 5 11c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+                <path d="M12 6.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill="#EA4335"/>
               </svg>
               <span>Google Maps</span>
             </a>
             <a href="https://maps.apple.com/?q=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403" target="_blank" rel="noopener" class="map-icon map-icon-apple" aria-label="Open in Apple Maps">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                <rect width="24" height="24" rx="5" fill="#007AFF"/>
+                <path d="M12 4C8.13 4 5 7.13 5 11c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+                <circle cx="12" cy="11" r="2.5" fill="#007AFF"/>
               </svg>
               <span>Apple Maps</span>
             </a>
