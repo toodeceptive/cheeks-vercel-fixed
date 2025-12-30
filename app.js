@@ -273,11 +273,18 @@ document.addEventListener("DOMContentLoaded", function () {
         data = {}; 
       }
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:258',message:'Response data parsed',data:{hasData:!!data,hasId:!!(data&&data.id),hasReceivedAt:!!(data&&data.receivedAt),dataKeys:data?Object.keys(data):[]},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:258',message:'Response data parsed',data:{hasData:!!data,hasId:!!(data&&data.id),hasReceivedAt:!!(data&&data.receivedAt),hasOk:!!(data&&data.ok),dataKeys:data?Object.keys(data):[],status:res.status,ok:res.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
       // #endregion
 
+      console.log('API Response:', { status: res.status, ok: res.ok, data: data });
+      
       if (!res.ok) {
-        throw new Error(data && data.error ? data.error : "Request failed");
+        console.error('API Error:', { status: res.status, statusText: res.statusText, data: data });
+        throw new Error(data && data.error ? data.error : `Request failed: ${res.status} ${res.statusText}`);
+      }
+      if (!data || !data.ok) {
+        console.error('API Response not OK:', data);
+        throw new Error(data && data.error ? data.error : "Invalid response from server");
       }
       // Redirect to a clean confirmation screen for presentation clarity
       // Keep a fallback message in case navigation is blocked.
