@@ -48,6 +48,13 @@ function requiredStr(v, maxLen) {
   return s.slice(0, maxLen);
 }
 
+function safeNum(v, min, max) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return null;
+  if (n < min || n > max) return null;
+  return Math.floor(n);
+}
+
 function htmlEscape(s) {
   return String(s)
     .replace(/&/g, '&amp;')
@@ -81,7 +88,7 @@ function eventSheetHtml(payload) {
     ['Event', payload.eventType],
     ['Date', payload.eventDate],
     ['Start Time', payload.eventTime],
-    ['Guests', payload.guests],
+    ['Guests', payload.guests || '—'],
     ['Package', payload.package],
     ['Deposit', payload.deposit || '—'],
     ['Minimum Spend', payload.minimumSpend || '—'],
@@ -127,6 +134,12 @@ export default async function handler(req, res) {
     const id = requiredStr(b.id, 80);
     if (!id) return bad(res, 400, 'Missing id');
 
+    // Validate guests as a number (1-200), reject if missing or invalid
+    const guestsNum = safeNum(b.guests, 1, 200);
+    if (guestsNum === null) {
+      return bad(res, 400, 'Invalid guests count. Must be a number between 1 and 200.');
+    }
+
     // The payload below can be pasted from Vercel logs (CHEEKS_INQUIRY JSON),
     // or you can pass fields again here. This keeps the flow lightweight for now.
     const payload = {
@@ -137,7 +150,7 @@ export default async function handler(req, res) {
       eventType: requiredStr(b.eventType || '', 60),
       eventDate: requiredStr(b.eventDate || '', 20),
       eventTime: requiredStr(b.eventTime || '', 20),
-      guests: requiredStr(String(b.guests || ''), 12),
+      guests: String(guestsNum),
       package: requiredStr(b.package || '', 4),
       notes: requiredStr(b.notes || '', 1200),
       src: requiredStr(b.src || '', 80),
