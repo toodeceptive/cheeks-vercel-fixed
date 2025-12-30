@@ -216,25 +216,24 @@ document.addEventListener("DOMContentLoaded", function () {
   var btn = document.getElementById("submitBtn");
   var dateEl = document.getElementById("eventDate");
 
-  // Set minimum date to today in LOCAL timezone (prevents past dates in date picker)
-  // HTML5 date inputs interpret the min attribute value in the user's local timezone,
-  // so we must use local date components. If we used UTC, users in timezones west of
-  // UTC would see tomorrow's date as the minimum when it's still today locally.
-  // Example: At 9 PM PST on Dec 30 (5 AM UTC Dec 31), using UTC would block Dec 30
-  // selection even though it's still today for the user. Using local timezone allows
-  // users to select "today" in their timezone, and validation (which uses UTC) will
-  // catch if the date is actually in the past in UTC.
+  // Set minimum date to today in UTC (prevents past dates in date picker)
+  // HTML5 date inputs interpret the min attribute in the user's local timezone.
+  // We set it to UTC today so that validation (which uses UTC) accepts dates
+  // that the picker allows. This ensures consistency: if it's already tomorrow
+  // in UTC, users will see tomorrow as the minimum (which is correct).
+  // Example: At 9 PM PST on Dec 30 (5 AM UTC Dec 31), min is set to Dec 31,
+  // preventing selection of Dec 30 which would be rejected by validation.
   if (dateEl) {
     var today = new Date();
-    // Get today's date in LOCAL timezone (YYYY-MM-DD format)
-    // HTML5 date inputs interpret min in local timezone, so we must use local date
-    // to allow users to select "today" in their timezone. Validation uses UTC and will
-    // catch if the date is actually in the past in UTC.
-    var y = today.getFullYear();
-    var m = String(today.getMonth() + 1).padStart(2, '0');
-    var d = String(today.getDate()).padStart(2, '0');
-    var todayStr = y + '-' + m + '-' + d;
+    // Get today's date in UTC (YYYY-MM-DD format)
+    var todayStr = today.toISOString().split("T")[0];
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:237',message:'Date picker min set (UTC)',data:{todayLocal:today.toString(),todayUTC:todayStr,timezoneOffset:today.getTimezoneOffset()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
     dateEl.setAttribute("min", todayStr);
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:240',message:'Min attribute after set',data:{minValue:dateEl.getAttribute('min')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
   }
 
   // Deposit hint for 13+ guests
@@ -272,15 +271,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Validate date is not in the past (using UTC to match server validation)
+    // The server parses date strings as UTC (e.g., "2025-12-30" becomes "2025-12-30T00:00:00Z").
+    // To match server behavior and prevent mismatches, we parse the selected date the same way.
+    // Note: This means if a user selects "today" in their local timezone but it's already
+    // "tomorrow" in UTC, validation will reject it (matching server behavior).
     if (dateEl && dateEl.value) {
-      // Use UTC for consistency with server-side validation to prevent mismatches
-      // where client accepts but server rejects the same date
+      // Parse selected date as UTC midnight (matches server parsing)
       var selected = new Date(dateEl.value + "T00:00:00Z");
       // Get today's date in UTC
       var today = new Date();
       var todayStr = today.toISOString().split("T")[0];
       var todayUTC = new Date(todayStr + "T00:00:00Z");
+      
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:282',message:'Date validation',data:{dateValue:dateEl.value,selectedUTC:selected.toISOString(),todayUTC:todayUTC.toISOString(),isValid:selected >= todayUTC},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+      // #endregion
+      
       if (selected < todayUTC) {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:287',message:'Date validation failed',data:{selectedUTC:selected.toISOString(),todayUTC:todayUTC.toISOString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
         return;
