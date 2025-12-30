@@ -233,6 +233,23 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    // Validate date is not in the past (timezone-safe)
+    var dateEl = document.getElementById("eventDate");
+    if (dateEl && dateEl.value) {
+      // Compare dates consistently in UTC to avoid timezone issues
+      // Parse selected date as UTC midnight
+      var selected = new Date(dateEl.value + "T00:00:00Z");
+      // Get today's date in UTC as YYYY-MM-DD string, then parse as UTC midnight
+      var today = new Date();
+      var todayStr = today.toISOString().split("T")[0];
+      var todayUTC = new Date(todayStr + "T00:00:00Z");
+      if (selected < todayUTC) {
+        setStatus("Event date cannot be in the past. Please select a future date.");
+        dateEl.focus();
+        return;
+      }
+    }
+
     // Honeypot
     var hp = document.getElementById("company");
     if (hp && hp.value && hp.value.trim().length > 0) {

@@ -35,6 +35,36 @@ function safeNum(v, min, max) {
   return Math.floor(n);
 }
 
+function isValidDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return false;
+  // Check format YYYY-MM-DD
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
+  // Use UTC to ensure consistent validation regardless of server timezone
+  const d = new Date(dateStr + 'T00:00:00Z');
+  return d instanceof Date && !isNaN(d) && d.toISOString().startsWith(dateStr);
+}
+
+function isFutureDate(dateStr) {
+  if (!isValidDate(dateStr)) return false;
+  // Compare dates consistently in UTC to avoid timezone issues
+  // Parse both dates as UTC midnight for fair comparison
+  const selected = new Date(dateStr + 'T00:00:00Z');
+  const today = new Date();
+  // Get today's date in UTC as YYYY-MM-DD string, then parse as UTC midnight
+  const todayStr = today.toISOString().split('T')[0];
+  const todayUTC = new Date(todayStr + 'T00:00:00Z');
+  return selected >= todayUTC;
+}
+
+function isValidTime(timeStr) {
+  if (!timeStr || typeof timeStr !== 'string') return false;
+  // Accept both HH:MM (24h) and HH:MM AM/PM formats
+  // 24-hour format: 00:00 to 23:59
+  // 12-hour format: 1-12 with AM/PM
+  return /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeStr) || 
+         /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i.test(timeStr);
+}
+
 function htmlEscape(s) {
   return String(s)
     .replace(/&/g, '&amp;')
@@ -128,7 +158,16 @@ export default async function handler(req, res) {
       return bad(res, 400, 'Missing required fields');
     }
     if (!looksLikeEmail(email)) {
-      return bad(res, 400, 'Invalid email');
+      return bad(res, 400, 'Invalid email format');
+    }
+    if (!isValidDate(eventDate)) {
+      return bad(res, 400, 'Invalid date format. Expected YYYY-MM-DD');
+    }
+    if (!isFutureDate(eventDate)) {
+      return bad(res, 400, 'Event date cannot be in the past');
+    }
+    if (!isValidTime(eventTime)) {
+      return bad(res, 400, 'Invalid time format');
     }
 
     const id = `inq_${Date.now()}_${Math.random().toString(16).slice(2, 10)}`;
