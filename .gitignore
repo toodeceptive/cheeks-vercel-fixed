@@ -13,7 +13,8 @@ Thumbs.db
 
 node_modules/
 package-lock.json
-package.json
+# Keep package.json for Vercel deployment
+# package.json
 
 
 .vercel
