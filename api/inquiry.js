@@ -12,14 +12,6 @@
  * - FROM_EMAIL (must be verified in Resend) e.g. "Cheeks <noreply@yourdomain.com>"
  */
 
-// #region agent log helper
-function debugLog(location, message, data, hypothesisId) {
-  // Temporarily disabled to test function
-  // const logEntry = {location,message,data,timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId};
-  // console.log('DEBUG_LOG', JSON.stringify(logEntry));
-}
-// #endregion
-
 function bad(res, code, msg) {
   res.status(code).json({ ok: false, error: msg });
 }
@@ -109,16 +101,10 @@ async function sendResendEmail({ to, from, subject, html, replyTo }) {
 }
 
 export default async function handler(req, res) {
-  // #region agent log
-  debugLog('api/inquiry.js:103', 'Handler entry', {method:req.method,hasBody:!!req.body}, 'A');
-  // #endregion
   try {
     if (req.method !== 'POST') return bad(res, 405, 'Method not allowed');
 
     const b = req.body || {};
-    // #region agent log
-    debugLog('api/inquiry.js:109', 'Honeypot check', {hasCompany:!!b.company,companyValue:b.company}, 'E');
-    // #endregion
 
     // Honeypot
     if (typeof b.company === 'string' && b.company.trim().length > 0) {
@@ -134,15 +120,9 @@ export default async function handler(req, res) {
     const pkg = requiredStr(b.package, 2);
     const guests = safeNum(b.guests, 1, 200);
     const notes = requiredStr(b.notes || '', 1200);
-    // #region agent log
     const q = req.query || {};
-    debugLog('api/inquiry.js:123', 'Source attribution BEFORE fix', {bSrc:b.src,qExists:typeof q!=='undefined',qSrc:q.src,queryKeys:Object.keys(q)}, 'A');
-    // #endregion
     const src = requiredStr((b.src || q.src || q.utm_source || q.utm_campaign || ''), 80);
     const pageUrl = requiredStr(b.pageUrl || '', 400);
-    // #region agent log
-    debugLog('api/inquiry.js:125', 'Validation check', {name:!!name,phone:!!phone,email:!!email,eventType:!!eventType,eventDate:!!eventDate,eventTime:!!eventTime,pkg:!!pkg,guests:guests!==null,emailValid:looksLikeEmail(email)}, 'C');
-    // #endregion
 
     if (!name || !phone || !email || !eventType || !eventDate || !eventTime || !pkg || guests === null) {
       return bad(res, 400, 'Missing required fields');
@@ -174,9 +154,6 @@ export default async function handler(req, res) {
 
     // Always log (so even without integrations, you have server logs in Vercel)
     console.log('CHEEKS_INQUIRY', JSON.stringify(payload));
-    // #region agent log
-    debugLog('api/inquiry.js:155', 'Payload created', {id,hasPayload:!!payload}, 'A');
-    // #endregion
 
     // Optional: notify owners via Resend
     const ownerList = (process.env.OWNER_NOTIFY_EMAILS || 'cheeksbandg@gmail.com')
@@ -184,9 +161,6 @@ export default async function handler(req, res) {
     const from = process.env.FROM_EMAIL || 'Cheeks Events <noreply@cheeksbar.com>';
 
     const html = buildEmailHtml(payload);
-    // #region agent log
-    debugLog('api/inquiry.js:163', 'Email setup', {ownerCount:ownerList.length,hasResendKey:!!process.env.RESEND_API_KEY}, 'D');
-    // #endregion
 
     let emailResult = { sent: false, reason: 'email not configured' };
     try {
@@ -197,14 +171,8 @@ export default async function handler(req, res) {
         html,
         replyTo: email
       });
-      // #region agent log
-      debugLog('api/inquiry.js:173', 'Owner email result', {sent:emailResult.sent,reason:emailResult.reason}, 'D');
-      // #endregion
     } catch (e) {
       emailResult = { sent: false, reason: String(e && e.message ? e.message : e) };
-      // #region agent log
-      debugLog('api/inquiry.js:175', 'Owner email error', {error:String(e)}, 'D');
-      // #endregion
     }
 
     // Optional: customer confirmation (off by default)
@@ -229,10 +197,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // #region agent log
     const receivedAt = new Date().toISOString();
-    debugLog('api/inquiry.js:199', 'Response preparation', {id,receivedAtDefined:typeof receivedAt!=='undefined',hasReceivedAt:!!receivedAt}, 'A');
-    // #endregion
     const response = {
       ok: true,
       id,
@@ -255,27 +220,9 @@ export default async function handler(req, res) {
       ownerEmail: emailResult.sent ? 'sent' : 'not_sent',
       customerEmail: customerResult.sent ? 'sent' : 'not_sent'
     };
-    // #region agent log
-    debugLog('api/inquiry.js:220', 'Response sent', {hasId:!!response.id,hasReceivedAt:!!response.receivedAt,responseKeys:Object.keys(response)}, 'H');
-    // #endregion
     res.status(200).json(response);
   } catch (err) {
-    const errorMsg = err?.message || String(err);
-    const errorName = err?.name || 'UnknownError';
-    console.error('CHEEKS_INQUIRY_ERR', errorName, errorMsg);
-    console.error('CHEEKS_INQUIRY_ERR_STACK', err?.stack || 'No stack');
-    console.error('CHEEKS_INQUIRY_ERR_FULL', JSON.stringify({
-      name: errorName,
-      message: errorMsg,
-      stack: err?.stack?.split('\n').slice(0, 5) || []
-    }));
-    // #region agent log
-    debugLog('api/inquiry.js:224', 'Handler error', {errorName, errorMsg, hasStack:!!err?.stack}, 'A');
-    // #endregion
-    // Return more detailed error to help debug (temporarily)
-    // In production, this will help identify the issue
-    const errorDetails = `${errorName}: ${errorMsg}`;
-    console.error('CHEEKS_INQUIRY_RETURNING_ERROR', errorDetails);
-    return bad(res, 500, `Server error - ${errorDetails}`);
+    console.error('CHEEKS_INQUIRY_ERR', err);
+    return bad(res, 500, 'Server error');
   }
 }

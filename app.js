@@ -228,16 +228,10 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     setStatus("");
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:228',message:'Form submit start',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
 
     // Basic client-side required checks
     if (!form.checkValidity()) {
       setStatus("Please fill in all required fields.");
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:233',message:'Form validation failed',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-      // #endregion
       return;
     }
 
@@ -245,46 +239,21 @@ document.addEventListener("DOMContentLoaded", function () {
     var hp = document.getElementById("company");
     if (hp && hp.value && hp.value.trim().length > 0) {
       setStatus("Thanks!");
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:240',message:'Honeypot triggered',data:{hpValue:hp.value},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
       return;
     }
 
     if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
-    var payload = payloadFromForm();
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:246',message:'Payload created',data:{hasName:!!payload.name,hasEmail:!!payload.email,src:payload.src},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-    // #endregion
     try {
       var res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payloadFromForm())
       });
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:252',message:'Fetch response received',data:{status:res.status,ok:res.ok,contentType:res.headers.get('content-type')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      // #endregion
       var data = null;
-      try { data = await res.json(); } catch (e2) { 
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:255',message:'JSON parse error',data:{error:String(e2)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
-        data = {}; 
-      }
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:258',message:'Response data parsed',data:{hasData:!!data,hasId:!!(data&&data.id),hasReceivedAt:!!(data&&data.receivedAt),hasOk:!!(data&&data.ok),dataKeys:data?Object.keys(data):[],status:res.status,ok:res.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
-      // #endregion
+      try { data = await res.json(); } catch (e2) { data = {}; }
 
-      console.log('API Response:', { status: res.status, ok: res.ok, data: data });
-      
       if (!res.ok) {
-        console.error('API Error:', { status: res.status, statusText: res.statusText, data: data });
-        throw new Error(data && data.error ? data.error : `Request failed: ${res.status} ${res.statusText}`);
-      }
-      if (!data || !data.ok) {
-        console.error('API Response not OK:', data);
-        throw new Error(data && data.error ? data.error : "Invalid response from server");
+        throw new Error(data && data.error ? data.error : "Request failed");
       }
       // Redirect to a clean confirmation screen for presentation clarity
       // Keep a fallback message in case navigation is blocked.
@@ -293,17 +262,10 @@ document.addEventListener("DOMContentLoaded", function () {
       var qs = new URLSearchParams();
       if (id) qs.set("id", id);
       if (src) qs.set("src", src);
-      var redirectUrl = "/thank-you.html" + (qs.toString() ? ("?" + qs.toString()) : "");
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:265',message:'Redirect attempt',data:{redirectUrl,hasId:!!id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      // #endregion
-      window.location.href = redirectUrl;
+      window.location.href = "/thank-you.html" + (qs.toString() ? ("?" + qs.toString()) : "");
     } catch (err) {
       setStatus("Couldn't send right now. Please call (715) 393-4026.");
       console.error(err);
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:268',message:'Form submit error',data:{error:String(err),errorName:err.name,errorMessage:err.message,errorStack:err.stack},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      // #endregion
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = "Send Request"; }
     }
