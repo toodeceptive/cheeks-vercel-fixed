@@ -60,23 +60,21 @@
   </script>
 
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="dns-prefetch" href="https://api.resend.com" />
-  <link rel="preconnect" href="https://www.google.com" crossorigin />
-  <link rel="preconnect" href="https://maps.apple.com" crossorigin />
-  <script defer src="/_vercel/speed-insights/script.js"></script>
-  <link rel="preload" as="image" href="/assets/images/hero.webp" type="image/webp" />
+  
+  <!-- Performance: Resource hints for external domains -->
   <link rel="dns-prefetch" href="https://api.resend.com" />
   <link rel="preconnect" href="https://api.resend.com" crossorigin />
+  <link rel="preconnect" href="https://www.google.com" crossorigin />
+  <link rel="preconnect" href="https://maps.apple.com" crossorigin />
+  <link rel="preconnect" href="https://www.facebook.com" crossorigin />
+  
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="preload" as="image" href="/assets/images/hero.webp" type="image/webp" />
 
   <link rel="icon" href="/assets/images/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16" />
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
-  
-  <!-- Performance: Preconnect to external domains -->
-  <link rel="preconnect" href="https://www.google.com" crossorigin />
-  <link rel="preconnect" href="https://maps.apple.com" crossorigin />
-  <link rel="preconnect" href="https://www.facebook.com" crossorigin />
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>

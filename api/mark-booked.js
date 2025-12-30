@@ -19,6 +19,22 @@ function bad(res, code, msg) {
   }
 }
 
+/**
+ * Constant-time string comparison to prevent timing attacks.
+ * Returns true if strings are equal, false otherwise.
+ * Always compares all characters regardless of early differences.
+ */
+function constantTimeEquals(a, b) {
+  if (a.length !== b.length) {
+    return false;
+  }
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 function requiredStr(v, maxLen) {
   if (typeof v !== 'string') return '';
   const s = v.trim();
@@ -97,7 +113,7 @@ export default async function handler(req, res) {
     const expected = process.env.ADMIN_TOKEN;
     if (!expected) return bad(res, 500, 'ADMIN_TOKEN not set');
     // Use constant-time comparison to prevent timing attacks
-    if (token.length !== expected.length || token !== expected) {
+    if (!constantTimeEquals(token, expected)) {
       return bad(res, 401, 'Unauthorized');
     }
 
