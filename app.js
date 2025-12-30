@@ -217,9 +217,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var dateEl = document.getElementById("eventDate");
 
   // Set minimum date to today (prevents past dates in date picker)
+  // Use local timezone to avoid UTC conversion issues (e.g., PST users on Dec 30
+  // would see min set to Dec 31 if using toISOString())
   if (dateEl) {
     var today = new Date();
-    var todayStr = today.toISOString().split("T")[0];
+    var y = today.getFullYear();
+    var m = String(today.getMonth() + 1).padStart(2, '0');
+    var d = String(today.getDate()).padStart(2, '0');
+    var todayStr = y + '-' + m + '-' + d;
     dateEl.setAttribute("min", todayStr);
   }
 
