@@ -423,32 +423,7 @@ p{margin:0 0 14px; line-height:1.6; font-size:14px}
 .menu-allergy p:last-child{margin-bottom:0}
 .menu-allergy strong{color:var(--text)}
 
-.gallery-grid{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap:16px;
-  margin-top:24px;
-}
-.thumb{
-  appearance:none;
-  padding:0;
-  border-radius: var(--radius);
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.16);
-  overflow:hidden;
-  cursor:pointer;
-  text-align:left;
-  color:inherit;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.thumb:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.3);
-  border-color: rgba(224,177,91,.25);
-}
-.thumb img{width:100%; height:170px; object-fit:cover; display:block}
-.cap{padding:10px 12px; color:var(--muted); font-weight:800; border-top:1px solid rgba(255,255,255,.06)}
+/* Gallery styles removed - gallery section no longer exists */
 
 .contact-grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; margin-top:24px}
 .contact-card{

@@ -21,7 +21,7 @@
       eventType: $('eventType').value.trim(),
       eventDate: $('eventDate').value.trim(),
       eventTime: $('eventTime').value.trim(),
-      guests: Number($('guests').value || 0),
+      guests: Math.max(1, Math.min(200, Number($('guests').value) || 1)),
       package: $('package').value,
       deposit: $('deposit').value.trim(),
       minimumSpend: $('minimumSpend').value.trim(),
