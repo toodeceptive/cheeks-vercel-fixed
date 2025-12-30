@@ -2,9 +2,6 @@
   "type": "module",
   "name": "cheeks-bar-and-grill",
   "version": "1.0.0",
-  "description": "Cheeks Bar & Grill event inquiry form",
-  "engines": {
-    "node": ">=18.x"
-  }
+  "description": "Cheeks Bar & Grill event inquiry form"
 }
 
