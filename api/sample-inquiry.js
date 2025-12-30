@@ -8,7 +8,7 @@ function json(res, code, obj) {
   res.end(JSON.stringify(obj));
 }
 function pick(arr, i) { return arr[i % arr.length]; }
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const now = new Date();
   const y = now.getFullYear();
   const m = String(now.getMonth()+1).padStart(2,'0');

@@ -187,8 +187,8 @@ export default async function handler(req, res) {
       notes,
       src: src || 'direct',
       pageUrl,
-      ip: (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim(),
-      ua: (req.headers['user-agent'] || '').toString().slice(0, 200),
+      ip: (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').toString().split(',')[0].trim() || 'unknown',
+      ua: (req.headers['user-agent'] || '').toString().slice(0, 200) || 'unknown',
       status: 'NEW'
     };
 

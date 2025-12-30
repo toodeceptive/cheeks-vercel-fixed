@@ -230,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Basic client-side required checks
     if (!form.checkValidity()) {
       setStatus("Please fill in all required fields.");
+      form.reportValidity();
       return;
     }
 
@@ -246,6 +247,17 @@ document.addEventListener("DOMContentLoaded", function () {
       if (selected < todayUTC) {
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
+        return;
+      }
+    }
+
+    // Validate guests count matches server-side limits (1-200)
+    var guestsEl = document.getElementById("guests");
+    if (guestsEl && guestsEl.value) {
+      var guests = Number(guestsEl.value);
+      if (!Number.isFinite(guests) || guests < 1 || guests > 200) {
+        setStatus("Number of guests must be between 1 and 200.");
+        guestsEl.focus();
         return;
       }
     }

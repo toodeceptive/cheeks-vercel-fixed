@@ -413,23 +413,23 @@
 
           <div class="form-grid">
             <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" required placeholder="First & last" />
+              <label for="name">Name <span aria-label="required">*</span></label>
+              <input id="name" name="name" type="text" required placeholder="First & last" aria-required="true" />
             </div>
 
             <div class="field">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" required placeholder="(715) 555‑1234" />
+              <label for="phone">Phone <span aria-label="required">*</span></label>
+              <input id="phone" name="phone" type="tel" required placeholder="(715) 555‑1234" aria-required="true" />
             </div>
 
             <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required placeholder="you@email.com" />
+              <label for="email">Email <span aria-label="required">*</span></label>
+              <input id="email" name="email" type="email" required placeholder="you@email.com" aria-required="true" />
             </div>
 
             <div class="field">
-              <label for="eventType">Event type</label>
-              <select id="eventType" name="eventType" required>
+              <label for="eventType">Event type <span aria-label="required">*</span></label>
+              <select id="eventType" name="eventType" required aria-required="true">
                 <option value="" selected disabled>Select one</option>
                 <option>Birthday</option>
                 <option>Graduation</option>
@@ -441,24 +441,25 @@
             </div>
 
             <div class="field">
-              <label for="eventDate">Date</label>
-              <input id="eventDate" name="eventDate" type="date" required />
+              <label for="eventDate">Date <span aria-label="required">*</span></label>
+              <input id="eventDate" name="eventDate" type="date" required aria-required="true" aria-describedby="dateHelp" />
+              <div class="help" id="dateHelp">Select a future date for your event</div>
             </div>
 
             <div class="field">
-              <label for="eventTime">Start time</label>
-              <input id="eventTime" name="eventTime" type="time" required />
+              <label for="eventTime">Start time <span aria-label="required">*</span></label>
+              <input id="eventTime" name="eventTime" type="time" required aria-required="true" />
             </div>
 
             <div class="field">
-              <label for="guests">Estimated guests</label>
-              <input id="guests" name="guests" type="number" min="1" max="60" required placeholder="e.g., 20" />
+              <label for="guests">Estimated guests <span aria-label="required">*</span></label>
+              <input id="guests" name="guests" type="number" min="1" max="200" required placeholder="e.g., 20" aria-required="true" />
               <div class="help" id="depositHint" aria-live="polite"></div>
             </div>
 
             <div class="field">
-              <label for="package">Package preference</label>
-              <select id="package" name="package" required>
+              <label for="package">Package preference <span aria-label="required">*</span></label>
+              <select id="package" name="package" required aria-required="true">
                 <option value="" selected disabled>Select one</option>
                 <option value="A">A — Apps + Drinks (low BOH load)</option>
                 <option value="B">B — Limited Buffet (batch-friendly)</option>
