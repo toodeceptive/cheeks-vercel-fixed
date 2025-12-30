@@ -25,16 +25,15 @@
   }
 
   // Gallery manifest (edit this list as you add images)
-  // Recommended filenames:
-  // - hero.webp (optional)
-  // - menu-1.webp, menu-2.webp ...
-  // - event-1.webp ...
-  // - interior-1.webp ...
+  // To add images: place .webp files in /assets/images/ and add entries below
+  // Images will automatically load if they exist, or be skipped if missing
   const MANIFEST = [
-    { src: "/assets/images/menu-1.webp", label: "Menu" },
-    { src: "/assets/images/menu-2.webp", label: "Menu" },
-    { src: "/assets/images/event-1.webp", label: "Event" },
-    { src: "/assets/images/interior-1.webp", label: "Inside" }
+    { src: "/assets/images/sign.webp", label: "Cheeks Bar & Grill Sign" },
+    { src: "/assets/images/food.webp", label: "Food" },
+    { src: "/assets/images/chef.webp", label: "Chef" },
+    { src: "/assets/images/staff.webp", label: "Staff" },
+    { src: "/assets/images/interior.webp", label: "Interior" },
+    { src: "/assets/images/patrons.webp", label: "Patrons" }
   ];
 
   const grid = $("#galleryGrid");
