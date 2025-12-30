@@ -92,10 +92,7 @@ export default async function handler(req, res) {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-<<<<<<< Current (Your changes)
     // Security: Validate admin token
-=======
->>>>>>> Incoming (Background Agent changes)
     const token = (req.headers['x-admin-token'] || '').toString().trim();
     const expected = process.env.ADMIN_TOKEN;
     if (!expected) return bad(res, 500, 'ADMIN_TOKEN not set');

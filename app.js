@@ -216,6 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
   var btn = document.getElementById("submitBtn");
   var dateEl = document.getElementById("eventDate");
 
+  // Set minimum date to today (prevents past dates in date picker)
+  if (dateEl) {
+    var today = new Date();
+    var todayStr = today.toISOString().split("T")[0];
+    dateEl.setAttribute("min", todayStr);
+  }
+
   // Deposit hint for 13+ guests
   function updateHint() {
     if (!guestsEl || !hintEl) return;

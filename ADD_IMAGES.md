@@ -48,4 +48,3 @@ Once images are in place, the website will automatically:
 - Load all images in the gallery section
 
 Images that don't exist will be gracefully skipped (no broken images).
-
