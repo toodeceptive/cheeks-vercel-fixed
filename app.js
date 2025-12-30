@@ -216,16 +216,24 @@ document.addEventListener("DOMContentLoaded", function () {
   var btn = document.getElementById("submitBtn");
   var dateEl = document.getElementById("eventDate");
 
-  // Set minimum date to today in UTC (prevents past dates in date picker)
-  // Use UTC to match server-side validation and prevent mismatches where
-  // the date picker allows a date that validation then rejects.
-  // HTML5 date inputs interpret the min value in the user's local timezone,
-  // but we set it to UTC today so validation (which uses UTC) accepts it.
+  // Set minimum date to today in LOCAL timezone (prevents past dates in date picker)
+  // HTML5 date inputs interpret the min attribute value in the user's local timezone,
+  // so we must use local date components. If we used UTC, users in timezones west of
+  // UTC would see tomorrow's date as the minimum when it's still today locally.
+  // Example: At 9 PM PST on Dec 30 (5 AM UTC Dec 31), using UTC would block Dec 30
+  // selection even though it's still today for the user. Using local timezone allows
+  // users to select "today" in their timezone, and validation (which uses UTC) will
+  // catch if the date is actually in the past in UTC.
   if (dateEl) {
     var today = new Date();
-    // Get today's date in UTC (YYYY-MM-DD format)
-    // On 12/30/2025, this ensures consistency across all timezones
-    var todayStr = today.toISOString().split("T")[0];
+    // Get today's date in LOCAL timezone (YYYY-MM-DD format)
+    // HTML5 date inputs interpret min in local timezone, so we must use local date
+    // to allow users to select "today" in their timezone. Validation uses UTC and will
+    // catch if the date is actually in the past in UTC.
+    var y = today.getFullYear();
+    var m = String(today.getMonth() + 1).padStart(2, '0');
+    var d = String(today.getDate()).padStart(2, '0');
+    var todayStr = y + '-' + m + '-' + d;
     dateEl.setAttribute("min", todayStr);
   }
 
