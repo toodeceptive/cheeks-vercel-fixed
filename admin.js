@@ -33,11 +33,17 @@
   async function callMarkBooked(preview){
     status.textContent = 'Working...';
     const token = $('token').value.trim();
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:33',message:'Admin call start',data:{preview,hasToken:!!token},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+    // #endregion
     if(!token){
       status.textContent = 'ERROR: ADMIN_TOKEN is required.';
       return;
     }
     const body = payload(preview);
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:40',message:'Admin payload created',data:{id:body.id,hasName:!!body.name,hasEmail:!!body.email},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+    // #endregion
     try{
       const res = await fetch('/api/mark-booked', {
         method:'POST',
@@ -47,20 +53,35 @@
         },
         body: JSON.stringify(body)
       });
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:50',message:'Admin response received',data:{status:res.status,ok:res.ok},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+      // #endregion
       const data = await res.json().catch(()=>({}));
       if(!res.ok || !data.ok){
         status.textContent = 'ERROR: ' + (data.error || res.statusText || 'Request failed');
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:52',message:'Admin error',data:{error:data.error},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+        // #endregion
         return;
       }
       if(preview){
         const html = data.previewHtml || '';
         frame.srcdoc = html || '<p style="font-family:sans-serif;padding:16px">No preview HTML returned.</p>';
         status.textContent = 'Preview generated for ' + body.id;
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:56',message:'Preview success',data:{hasHtml:!!html},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+        // #endregion
       }else{
         status.textContent = 'BOOKED marked for ' + body.id + ' — email: ' + (data.email || 'n/a');
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:60',message:'Booked success',data:{email:data.email},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+        // #endregion
       }
     }catch(e){
       status.textContent = 'ERROR: ' + (e && e.message ? e.message : String(e));
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/57b299a8-4574-40ad-8d61-9a9b5885b3f1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin.js:63',message:'Admin exception',data:{error:String(e)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+      // #endregion
     }
   }
 
