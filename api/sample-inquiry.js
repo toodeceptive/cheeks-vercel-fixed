@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   const now = new Date();
   // Create a date 7 days in the future (handles month/year rollovers correctly)
   const futureDate = new Date(now);
-  futureDate.setDate(now.getDate() + 7);
+  futureDate.setDate(futureDate.getDate() + 7);
   
   const y = futureDate.getFullYear();
   const m = String(futureDate.getMonth() + 1).padStart(2, '0');
