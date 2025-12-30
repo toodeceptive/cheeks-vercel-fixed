@@ -12,26 +12,71 @@
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cheeks Bar & Grill" />
   <meta property="og:title" content="Cheeks Bar & Grill | Bar & Grill in Wausau, WI" />
   <meta property="og:description" content="Good Ale, Great Company, Legendary Nights. Tap to call, get directions, view menu photos, and see events." />
   <meta property="og:url" content="https://cheeks-bar-and-grill.vercel.app/" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://cheeks-bar-and-grill.vercel.app/assets/images/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Cheeks Bar & Grill in Wausau, Wisconsin" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cheeks Bar & Grill | Bar & Grill in Wausau, WI" />
   <meta name="twitter:description" content="Good Ale, Great Company, Legendary Nights. Tap to call, get directions, view menu photos, and see events." />
   <meta name="twitter:image" content="https://cheeks-bar-and-grill.vercel.app/assets/images/og.png" />
+  <meta name="twitter:image:alt" content="Cheeks Bar & Grill in Wausau, Wisconsin" />
 
-  <script type="application/ld+json" src="/schema.json"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["BarOrPub", "Restaurant"],
+      "name": "Cheeks Bar and Grill",
+      "url": "https://cheeks-bar-and-grill.vercel.app/",
+      "telephone": "+17153934026",
+      "email": "cheeksbandg@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4011 E Wausau Ave",
+        "addressLocality": "Wausau",
+        "addressRegion": "WI",
+        "postalCode": "54403",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Tuesday", "opens": "14:00", "closes": "00:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Wednesday", "opens": "14:00", "closes": "00:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Thursday", "opens": "14:00", "closes": "00:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Friday", "opens": "14:00", "closes": "01:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Saturday", "opens": "12:00", "closes": "01:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/Sunday", "opens": "12:00", "closes": "20:00"}
+      ],
+      "sameAs": [
+        "https://www.yelp.com/biz/cheeks-bar-and-grill-wausau",
+        "https://www.facebook.com/profile.php?id=61571389349445"
+      ]
+    }
+  </script>
 
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="dns-prefetch" href="https://api.resend.com" />
+  <link rel="preconnect" href="https://www.google.com" crossorigin />
+  <link rel="preconnect" href="https://maps.apple.com" crossorigin />
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <link rel="preload" as="image" href="/assets/images/hero.webp" type="image/webp" />
+  <link rel="dns-prefetch" href="https://api.resend.com" />
+  <link rel="preconnect" href="https://api.resend.com" crossorigin />
 
   <link rel="icon" href="/assets/images/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16" />
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+  
+  <!-- Performance: Preconnect to external domains -->
+  <link rel="preconnect" href="https://www.google.com" crossorigin />
+  <link rel="preconnect" href="https://maps.apple.com" crossorigin />
+  <link rel="preconnect" href="https://www.facebook.com" crossorigin />
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -112,7 +157,15 @@
             <p>Owned and operated by Ryan and Angela Thomas, Cheeks Bar & Grill brings you authentic Wisconsin hospitality with delicious food, cold drinks, and a friendly atmosphere.</p>
           </div>
           <div class="about-image">
-            <img src="/assets/images/staff.webp" alt="Cheeks Bar & Grill owners and staff" loading="lazy" decoding="async" onerror="this.style.display='none'; this.parentElement.classList.add('noimg');" />
+<<<<<<< Current (Your changes)
+<<<<<<< Current (Your changes)
+            <img src="/assets/images/staff.webp" alt="Cheeks Bar & Grill owners and staff" loading="lazy" decoding="async" id="staffImg" />
+=======
+            <img src="/assets/images/staff.webp" alt="Cheeks Bar & Grill owners and staff" loading="lazy" decoding="async" />
+>>>>>>> Incoming (Background Agent changes)
+=======
+            <img src="/assets/images/staff.webp" alt="Cheeks Bar & Grill owners and staff" loading="lazy" decoding="async" id="staffImg" />
+>>>>>>> Incoming (Background Agent changes)
             <div class="media-fallback small" aria-hidden="true">Staff photo</div>
           </div>
         </div>
@@ -442,18 +495,19 @@
 
             <div class="field">
               <label for="eventDate">Date <span aria-label="required">*</span></label>
-              <input id="eventDate" name="eventDate" type="date" required aria-required="true" aria-describedby="dateHelp" />
+              <input id="eventDate" name="eventDate" type="date" required aria-required="true" aria-describedby="dateHelp" min="" />
               <div class="help" id="dateHelp">Select a future date for your event</div>
             </div>
 
             <div class="field">
               <label for="eventTime">Start time <span aria-label="required">*</span></label>
-              <input id="eventTime" name="eventTime" type="time" required aria-required="true" />
+              <input id="eventTime" name="eventTime" type="time" required aria-required="true" aria-describedby="timeHelp" />
+              <div class="help" id="timeHelp">Use 24-hour format or select from picker</div>
             </div>
 
             <div class="field">
               <label for="guests">Estimated guests <span aria-label="required">*</span></label>
-              <input id="guests" name="guests" type="number" min="1" max="200" required placeholder="e.g., 20" aria-required="true" />
+              <input id="guests" name="guests" type="number" min="1" max="200" step="1" required placeholder="e.g., 20" aria-required="true" />
               <div class="help" id="depositHint" aria-live="polite"></div>
             </div>
 

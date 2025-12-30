@@ -163,17 +163,31 @@
   MANIFEST.forEach(addTile);
 })();
 
-/* Hero fallback (replaces inline onerror so CSP can be strict) */
+/* Image fallback handlers (replaces inline onerror so CSP can be strict) */
 document.addEventListener("DOMContentLoaded", function () {
+  // Hero image fallback
   var hero = document.getElementById("heroImg");
-  if (!hero) return;
-  hero.addEventListener("error", function () {
-    try {
-      var frame = hero.closest(".media-frame");
-      if (frame) frame.classList.add("noimg");
-      hero.remove();
-    } catch (e) { /* noop */ }
-  }, { once: true });
+  if (hero) {
+    hero.addEventListener("error", function () {
+      try {
+        var frame = hero.closest(".media-frame");
+        if (frame) frame.classList.add("noimg");
+        hero.remove();
+      } catch (e) { /* noop */ }
+    }, { once: true });
+  }
+
+  // Staff image fallback
+  var staff = document.getElementById("staffImg");
+  if (staff) {
+    staff.addEventListener("error", function () {
+      try {
+        staff.style.display = "none";
+        var parent = staff.closest(".about-image");
+        if (parent) parent.classList.add("noimg");
+      } catch (e) { /* noop */ }
+    }, { once: true });
+  }
 });
 
 /* Event inquiry form */
@@ -195,9 +209,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var srcEl = document.getElementById("src");
   if (srcEl) srcEl.value = src;
 
-  // Deposit hint for 13+ guests
+  // Form elements
   var guestsEl = document.getElementById("guests");
   var hintEl = document.getElementById("depositHint");
+  var statusEl = document.getElementById("formStatus");
+  var btn = document.getElementById("submitBtn");
+  var dateEl = document.getElementById("eventDate");
+
+  // Deposit hint for 13+ guests
   function updateHint() {
     if (!guestsEl || !hintEl) return;
     var n = Number(guestsEl.value || 0);
@@ -206,9 +225,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   if (guestsEl) guestsEl.addEventListener("input", updateHint);
   updateHint();
-
-  var statusEl = document.getElementById("formStatus");
-  var btn = document.getElementById("submitBtn");
 
   function setStatus(msg) {
     if (statusEl) statusEl.textContent = msg || "";
@@ -235,7 +251,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Validate date is not in the past (using UTC to match server validation)
-    var dateEl = document.getElementById("eventDate");
     if (dateEl && dateEl.value) {
       // Use UTC for consistency with server-side validation to prevent mismatches
       // where client accepts but server rejects the same date
@@ -252,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Validate guests count matches server-side limits (1-200)
-    var guestsEl = document.getElementById("guests");
     if (guestsEl && guestsEl.value) {
       var guests = Number(guestsEl.value);
       if (!Number.isFinite(guests) || guests < 1 || guests > 200) {

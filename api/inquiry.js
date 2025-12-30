@@ -14,6 +14,10 @@
 
 function bad(res, code, msg) {
   res.status(code).json({ ok: false, error: msg });
+  // Log error for monitoring
+  if (code >= 500) {
+    console.error('CHEEKS_API_ERROR', { code, msg, ts: new Date().toISOString() });
+  }
 }
 
 function requiredStr(v, maxLen) {
@@ -59,11 +63,11 @@ function isFutureDate(dateStr) {
 
 function isValidTime(timeStr) {
   if (!timeStr || typeof timeStr !== 'string') return false;
-  // Accept both HH:MM (24h) and HH:MM AM/PM formats
-  // 24-hour format: 00:00 to 23:59
-  // 12-hour format: 1-12 with AM/PM
-  return /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeStr) || 
-         /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i.test(timeStr);
+  const trimmed = timeStr.trim();
+  // Accept HTML5 time input format (HH:MM) - 24-hour format: 00:00 to 23:59
+  // Also accept 12-hour format with AM/PM for user convenience
+  return /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(trimmed) || 
+         /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i.test(trimmed);
 }
 
 function htmlEscape(s) {
@@ -133,12 +137,21 @@ async function sendResendEmail({ to, from, subject, html, replyTo }) {
 
 export default async function handler(req, res) {
   try {
-    if (req.method !== 'POST') return bad(res, 405, 'Method not allowed');
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST');
+      return bad(res, 405, 'Method not allowed');
+    }
+    
+    // Set security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     const b = req.body || {};
 
-    // Honeypot
+    // Honeypot - silently ignore bot submissions
     if (typeof b.company === 'string' && b.company.trim().length > 0) {
+      // Log honeypot hits for monitoring (but don't expose this to client)
+      console.log('CHEEKS_HONEYPOT', { ip: (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim() || 'unknown' });
       return res.status(200).json({ ok: true, id: 'hp', status: 'ignored' });
     }
 
@@ -171,6 +184,7 @@ export default async function handler(req, res) {
       return bad(res, 400, 'Invalid time format');
     }
 
+    // Generate unique ID with timestamp and random component
     const id = `inq_${Date.now()}_${Math.random().toString(16).slice(2, 10)}`;
 
     const payload = {
@@ -204,15 +218,18 @@ export default async function handler(req, res) {
 
     let emailResult = { sent: false, reason: 'email not configured' };
     try {
+      // Sanitize subject line to prevent email header injection
+      const safeSubject = `New Event Inquiry (${guests} guests) — ${eventDate} ${eventTime}`.replace(/[\r\n]/g, ' ');
       emailResult = await sendResendEmail({
         to: ownerList,
         from,
-        subject: `New Event Inquiry (${guests} guests) — ${eventDate} ${eventTime}`,
+        subject: safeSubject,
         html,
         replyTo: email
       });
     } catch (e) {
       emailResult = { sent: false, reason: String(e && e.message ? e.message : e) };
+      console.error('CHEEKS_EMAIL_ERR', { error: String(e), inquiryId: id });
     }
 
     // Optional: customer confirmation (off by default)

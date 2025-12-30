@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Request Received | Cheeks Bar & Grill</title>
+  <meta name="description" content="Your event inquiry has been received. We'll contact you soon to confirm details." />
   <meta name="robots" content="noindex,follow" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
@@ -50,10 +51,15 @@
   <script>
     (function(){
       try {
-        var u = new URL(window.location.href);
-        var id = u.searchParams.get('id');
-        document.getElementById('ref').textContent = id ? id : '—';
-      } catch(e) {}
+        const u = new URL(window.location.href);
+        const id = u.searchParams.get('id');
+        const refEl = document.getElementById('ref');
+        if (refEl) {
+          refEl.textContent = id ? id : '—';
+        }
+      } catch(e) {
+        // Silently fail if URL parsing is not supported
+      }
     })();
   </script>
 </body>

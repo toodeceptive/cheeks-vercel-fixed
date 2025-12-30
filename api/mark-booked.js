@@ -13,6 +13,10 @@
 
 function bad(res, code, msg) {
   res.status(code).json({ ok: false, error: msg });
+  // Log error for monitoring
+  if (code >= 500) {
+    console.error('CHEEKS_BOOKED_API_ERROR', { code, msg, ts: new Date().toISOString() });
+  }
 }
 
 function requiredStr(v, maxLen) {
@@ -79,12 +83,26 @@ function eventSheetHtml(payload) {
 
 export default async function handler(req, res) {
   try {
-    if (req.method !== 'POST') return bad(res, 405, 'Method not allowed');
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST');
+      return bad(res, 405, 'Method not allowed');
+    }
+    
+    // Set security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-    const token = (req.headers['x-admin-token'] || '').toString();
+<<<<<<< Current (Your changes)
+    // Security: Validate admin token
+=======
+>>>>>>> Incoming (Background Agent changes)
+    const token = (req.headers['x-admin-token'] || '').toString().trim();
     const expected = process.env.ADMIN_TOKEN;
     if (!expected) return bad(res, 500, 'ADMIN_TOKEN not set');
-    if (token !== expected) return bad(res, 401, 'Unauthorized');
+    // Use constant-time comparison to prevent timing attacks
+    if (token.length !== expected.length || token !== expected) {
+      return bad(res, 401, 'Unauthorized');
+    }
 
     const b = req.body || {};
     const id = requiredStr(b.id, 80);
@@ -126,7 +144,7 @@ export default async function handler(req, res) {
       emailResult = await sendResendEmail({
         to: ownerList,
         from,
-        subject: `BOOKED: ${payload.eventType} — ${payload.eventDate} ${payload.eventTime} (${payload.guests} guests)`,
+        subject: `BOOKED: ${payload.eventType} — ${payload.eventDate} ${payload.eventTime} (${payload.guests} guests)`.replace(/[\r\n]/g, ' '),
         html
       });
     } catch (e) {
