@@ -5,7 +5,7 @@
  */
 function json(res, code, obj) {
   res.status(code)
-    .setHeader('content-type', 'application/json; charset=utf-8')
+    .setHeader('Content-Type', 'application/json; charset=utf-8')
     .setHeader('cache-control', 'no-store, no-cache, must-revalidate')
     .setHeader('X-Content-Type-Options', 'nosniff');
   res.end(JSON.stringify(obj));

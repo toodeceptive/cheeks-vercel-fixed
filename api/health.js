@@ -4,7 +4,7 @@
  * Returns service status and timestamp.
  */
 export default async function handler(req, res) {
-  res.setHeader('content-type', 'application/json; charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('cache-control', 'no-store, no-cache, must-revalidate');
   res.status(200).end(JSON.stringify({ 
     ok: true, 

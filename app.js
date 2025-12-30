@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       var res = await fetch("/api/inquiry", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=utf-8" },
         body: JSON.stringify(payloadFromForm())
       });
       var data = null;

@@ -122,8 +122,8 @@ async function sendResendEmail({ to, from, subject, html, replyTo }) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
-      'authorization': `Bearer ${apiKey}`,
-      'content-type': 'application/json'
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json; charset=utf-8'
     },
     body: JSON.stringify(body)
   });

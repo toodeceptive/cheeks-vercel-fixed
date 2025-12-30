@@ -43,7 +43,7 @@
       const res = await fetch('/api/mark-booked', {
         method:'POST',
         headers:{
-          'content-type':'application/json',
+          'Content-Type':'application/json; charset=utf-8',
           'x-admin-token': token
         },
         body: JSON.stringify(body)
