@@ -272,10 +272,10 @@ export default async function handler(req, res) {
     // #region agent log
     debugLog('api/inquiry.js:224', 'Handler error', {errorName, errorMsg, hasStack:!!err?.stack}, 'A');
     // #endregion
-    // Return more detailed error in development, generic in production
-    // Temporarily show error details to help debug
-    const isDev = process.env.VERCEL_ENV !== 'production' || process.env.NODE_ENV !== 'production';
-    const errorDetails = isDev ? ` (${errorName}: ${errorMsg})` : '';
-    return bad(res, 500, `Server error${errorDetails}`);
+    // Return more detailed error to help debug (temporarily)
+    // In production, this will help identify the issue
+    const errorDetails = `${errorName}: ${errorMsg}`;
+    console.error('CHEEKS_INQUIRY_RETURNING_ERROR', errorDetails);
+    return bad(res, 500, `Server error - ${errorDetails}`);
   }
 }
