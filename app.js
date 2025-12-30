@@ -262,11 +262,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Validate date is not in the past (using local timezone to match min attribute)
+    // Validate date is not in the past (using UTC to match server validation)
     if (dateEl && dateEl.value) {
-      // Use local timezone to match the min attribute behavior (HTML5 date inputs are local)
-      // This prevents mismatches where the date picker allows a date but validation rejects it
-      var selected = new Date(dateEl.value + "T00:00:00");
+      // Use UTC for consistency with server-side validation to prevent mismatches
+      // where client accepts but server rejects the same date
+      var selected = new Date(dateEl.value + "T00:00:00Z");
       var today = new Date();
       today.setHours(0, 0, 0, 0);
       if (selected < today) {
