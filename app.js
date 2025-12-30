@@ -267,9 +267,11 @@ document.addEventListener("DOMContentLoaded", function () {
       // Use UTC for consistency with server-side validation to prevent mismatches
       // where client accepts but server rejects the same date
       var selected = new Date(dateEl.value + "T00:00:00Z");
+      // Get today's date in UTC
       var today = new Date();
-      today.setHours(0, 0, 0, 0);
-      if (selected < today) {
+      var todayStr = today.toISOString().split("T")[0];
+      var todayUTC = new Date(todayStr + "T00:00:00Z");
+      if (selected < todayUTC) {
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
         return;
