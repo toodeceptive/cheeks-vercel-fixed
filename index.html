@@ -230,7 +230,13 @@
         <h2>Menu</h2>
         <p class="muted">Full menu with appetizers, sandwiches, salads, wraps, and more. All items subject to availability.</p>
         
-        <div class="menu-content">
+        <div class="menu-mobile-toggle" id="menuToggle" style="display:none">
+          <button class="btn btn-primary" type="button" aria-expanded="false" aria-controls="menuContent">
+            <span id="menuToggleText">View Full Menu</span>
+          </button>
+        </div>
+        
+        <div class="menu-content" id="menuContent">
           <div class="menu-section">
             <h3>Appetizers</h3>
             <div class="menu-items">
@@ -550,8 +556,30 @@
         <h2>Contact</h2>
         <div class="contact-grid">
           <a class="contact-card" href="tel:+17153934026"><div><div class="label">Phone</div><div class="value">(715) 393-4026</div></div></a>
-          <a class="contact-card" href="mailto:cheeksbandg@gmail.com"><div><div class="label">Email</div><div class="value">cheeksbandg@gmail.com</div></div></a>
-          <a class="contact-card" href="https://www.google.com/maps/search/?api=1&query=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403" target="_blank" rel="noopener"><div><div class="label">Address</div><div class="value">4011 E Wausau Ave, Wausau, WI 54403</div></div></a>
+          <a class="contact-card" href="mailto:cheeksbandg@gmail.com" target="_blank" rel="noopener"><div><div class="label">Email</div><div class="value">cheeksbandg@gmail.com</div></div></a>
+        </div>
+        
+        <div class="contact-address-section">
+          <div class="contact-address-title">Get Directions</div>
+          <div class="directions-icons">
+            <a href="https://www.google.com/maps/search/?api=1&query=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403" target="_blank" rel="noopener" class="map-icon map-icon-google" aria-label="Open in Google Maps">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="5" fill="#4285F4"/>
+                <path d="M12 4C8.13 4 5 7.13 5 11c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+                <path d="M12 6.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill="#EA4335"/>
+              </svg>
+              <span>Google Maps</span>
+            </a>
+            <a href="https://maps.apple.com/?q=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403" target="_blank" rel="noopener" class="map-icon map-icon-apple" aria-label="Open in Apple Maps">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="5" fill="#007AFF"/>
+                <path d="M12 4C8.13 4 5 7.13 5 11c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+                <circle cx="12" cy="11" r="2.5" fill="#007AFF"/>
+              </svg>
+              <span>Apple Maps</span>
+            </a>
+          </div>
+          <p class="contact-address-text">4011 E Wausau Ave, Wausau, WI 54403</p>
         </div>
       </div>
     </section>
@@ -562,7 +590,7 @@
       <div class="footer-nap">
         <strong>Cheeks Bar and Grill</strong><br />
         4011 E Wausau Ave, Wausau, WI 54403<br />
-        <a href="tel:+17153934026">(715) 393-4026</a> &bull; <a href="mailto:cheeksbandg@gmail.com">cheeksbandg@gmail.com</a>
+        <a href="tel:+17153934026">(715) 393-4026</a> &bull; <a href="mailto:cheeksbandg@gmail.com" target="_blank" rel="noopener">cheeksbandg@gmail.com</a>
       </div>
       <div class="footer-links">
         <a href="https://cheeksbar.com/" target="_blank" rel="noopener">Website</a>

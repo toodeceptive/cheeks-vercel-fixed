@@ -25,6 +25,20 @@
   }
 
   // Gallery section removed - no longer needed
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById("menuToggle");
+  const menuContent = document.getElementById("menuContent");
+  const menuToggleText = document.getElementById("menuToggleText");
+  const menuToggleBtn = menuToggle ? menuToggle.querySelector("button") : null;
+  
+  if (menuToggleBtn && menuContent && menuToggleText) {
+    menuToggleBtn.addEventListener("click", () => {
+      const isExpanded = menuContent.classList.toggle("mobile-expanded");
+      menuToggleBtn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+      menuToggleText.textContent = isExpanded ? "Hide Menu" : "View Full Menu";
+    });
+  }
 })();
 
 /* Image fallback handlers (replaces inline onerror so CSP can be strict) */

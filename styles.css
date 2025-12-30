@@ -336,6 +336,10 @@ p{margin:0 0 14px; line-height:1.6; font-size:14px}
 .media-fallback.small{padding:16px; color:var(--muted); text-align:center}
 
 /* Menu Styles */
+.menu-mobile-toggle{
+  margin-top:20px;
+  text-align:center;
+}
 .menu-content{margin-top:28px}
 .menu-section{
   margin-bottom:32px;
@@ -425,7 +429,7 @@ p{margin:0 0 14px; line-height:1.6; font-size:14px}
 
 /* Gallery styles removed - gallery section no longer exists */
 
-.contact-grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; margin-top:24px}
+.contact-grid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:18px; margin-top:24px}
 .contact-card{
   border-radius: var(--radius);
   border:1px solid rgba(255,255,255,.12);
@@ -439,6 +443,27 @@ p{margin:0 0 14px; line-height:1.6; font-size:14px}
   border-color: rgba(224,177,91,.30);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+.contact-address-section{
+  margin-top:28px;
+  text-align:center;
+  padding:24px;
+  background:rgba(15,17,19,.40);
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+.contact-address-title{
+  font-size:18px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:16px;
+  letter-spacing:.3px;
+}
+.contact-address-text{
+  margin:16px 0 0;
+  color:var(--muted);
+  font-size:14px;
 }
 .label{color:var(--muted); font-weight:800; font-size:12px}
 .value{font-weight:900; margin-top:6px}
@@ -486,6 +511,9 @@ a:focus-visible, button:focus-visible{
   .cards{grid-template-columns: 1fr; gap:16px}
   .about-content{grid-template-columns: 1fr; gap:20px}
   .about-image{min-height:240px}
+  .menu-mobile-toggle{display:block !important}
+  .menu-content{display:none}
+  .menu-content.mobile-expanded{display:block}
   .menu-items{grid-template-columns: 1fr; gap:10px}
   .menu-item-header{flex-direction:column; gap:6px}
   .menu-item-name{min-width:auto; font-size:15px}
@@ -493,6 +521,7 @@ a:focus-visible, button:focus-visible{
   .directions-icons{flex-direction:column; gap:12px}
   .map-icon{width:100%; justify-content:center}
   .contact-grid{grid-template-columns: 1fr; gap:16px}
+  .contact-address-section{margin-top:20px; padding:20px}
   .footer-inner{grid-template-columns: 1fr}
   .section{padding:36px 0}
   .section-surface{padding:40px 0; margin-top:20px; margin-bottom:20px}
