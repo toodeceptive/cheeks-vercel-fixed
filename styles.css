@@ -37,6 +37,7 @@ a{color:inherit}
   background: rgba(15,17,19,.82);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
+  contain: layout style paint;
 }
 .header-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0}
 .brand{display:flex; align-items:center; gap:10px}
@@ -90,8 +91,8 @@ a{color:inherit}
   background: rgba(255,255,255,.03);
 }
 
-.main{padding-bottom:40px}
-.hero{padding:44px 0 20px}
+.main{padding-bottom:40px; contain: layout style;}
+.hero{padding:44px 0 20px; contain: layout style;}
 .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:center}
 .hero h1{margin:0 0 10px; font-size:clamp(28px, 3.8vw, 40px); line-height:1.1; font-weight:900; letter-spacing:-0.3px}
 .lead{margin:0 0 20px; color:var(--muted); font-size:15px; line-height:1.6}

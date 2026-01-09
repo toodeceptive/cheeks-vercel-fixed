@@ -140,10 +140,14 @@ document.addEventListener("DOMContentLoaded", function () {
   /**
    * Set form status message
    * @param {string} msg - Status message
+   * @param {boolean} [isError=false] - Whether this is an error message
    * @returns {void}
    */
-  function setStatus(msg) {
-    if (statusEl) statusEl.textContent = msg || "";
+  function setStatus(msg, isError = false) {
+    if (statusEl) {
+      statusEl.textContent = msg || "";
+      statusEl.setAttribute("aria-busy", msg && !isError ? "false" : "false");
+    }
   }
 
   /**
@@ -165,10 +169,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Basic client-side required checks
     if (!form.checkValidity()) {
-      setStatus("Please fill in all required fields.");
+      setStatus("Please fill in all required fields.", true);
       form.reportValidity();
+      // Mark invalid fields
+      Array.from(form.elements).forEach(el => {
+        if (el.validity && !el.validity.valid) {
+          el.setAttribute("aria-invalid", "true");
+        }
+      });
       return;
     }
+    
+    // Clear aria-invalid from all fields
+    Array.from(form.elements).forEach(el => {
+      el.removeAttribute("aria-invalid");
+    });
 
     // Validate date is not in the past (using UTC to match server validation)
     // The server parses date strings as UTC (e.g., "2025-12-30" becomes "2025-12-30T00:00:00Z").
@@ -183,7 +198,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const todayStr = today.toISOString().split("T")[0];
       const todayUTC = new Date(todayStr + "T00:00:00Z");
       if (selected < todayUTC) {
-        setStatus("Event date cannot be in the past. Please select a future date.");
+        setStatus("Event date cannot be in the past. Please select a future date.", true);
+        dateEl.setAttribute("aria-invalid", "true");
         dateEl.focus();
         return;
       }
@@ -193,7 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (guestsEl && guestsEl.value) {
       const guests = Number(guestsEl.value);
       if (!Number.isFinite(guests) || guests < 1 || guests > 200) {
-        setStatus("Number of guests must be between 1 and 200.");
+        setStatus("Number of guests must be between 1 and 200.", true);
+        guestsEl.setAttribute("aria-invalid", "true");
         guestsEl.focus();
         return;
       }
@@ -206,13 +223,28 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+    // Prevent duplicate submissions
+    if (btn && btn.disabled) return;
+    
+    if (btn) { 
+      btn.disabled = true; 
+      btn.textContent = "Sending…";
+      btn.setAttribute("aria-busy", "true");
+      if (form) form.setAttribute("aria-busy", "true");
+    }
+    
+    // Add timeout protection
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    
     try {
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify(payloadFromForm())
+        body: JSON.stringify(payloadFromForm()),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       let data = null;
       try { data = await res.json(); } catch (e2) { data = {}; }
 
@@ -221,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       // Redirect to a clean confirmation screen for presentation clarity
       // Keep a fallback message in case navigation is blocked.
+      if (form) form.setAttribute("aria-busy", "false");
       setStatus("Request received. Redirecting…");
       const id = (data && data.id) ? String(data.id) : "";
       const qs = new URLSearchParams();
@@ -228,11 +261,23 @@ document.addEventListener("DOMContentLoaded", function () {
       if (src) qs.set("src", src);
       window.location.href = "/thank-you.html" + (qs.toString() ? ("?" + qs.toString()) : "");
     } catch (err) {
-      setStatus("Couldn't send right now. Please call (715) 393-4026.");
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') {
+        setStatus("Request timed out. Please check your connection and try again.");
+      } else if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        setStatus("Network error. Please check your connection and try again.");
+      } else {
+        setStatus("Couldn't send right now. Please call (715) 393-4026.");
+      }
       // eslint-disable-next-line no-console
       console.error(err);
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = "Send Request"; }
+      if (btn) { 
+        btn.disabled = false; 
+        btn.textContent = "Send Request";
+        btn.setAttribute("aria-busy", "false");
+        if (form) form.setAttribute("aria-busy", "false");
+      }
     }
   });
 });

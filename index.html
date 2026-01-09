@@ -483,17 +483,17 @@
           <div class="form-grid">
             <div class="field">
               <label for="name">Name <span aria-label="required">*</span></label>
-              <input id="name" name="name" type="text" required placeholder="First & last" aria-required="true" />
+              <input id="name" name="name" type="text" required placeholder="First & last" aria-required="true" autocomplete="name" />
             </div>
 
             <div class="field">
               <label for="phone">Phone <span aria-label="required">*</span></label>
-              <input id="phone" name="phone" type="tel" required placeholder="(715) 555‑1234" aria-required="true" />
+              <input id="phone" name="phone" type="tel" required placeholder="(715) 555‑1234" aria-required="true" autocomplete="tel" />
             </div>
 
             <div class="field">
               <label for="email">Email <span aria-label="required">*</span></label>
-              <input id="email" name="email" type="email" required placeholder="you@email.com" aria-required="true" />
+              <input id="email" name="email" type="email" required placeholder="you@email.com" aria-required="true" autocomplete="email" />
             </div>
 
             <div class="field">
@@ -544,8 +544,8 @@
           </div>
 
           <div class="form-actions">
-            <button class="btn btn-primary" type="submit" id="submitBtn">Send Request</button>
-            <div class="muted" id="formStatus" role="status" aria-live="polite"></div>
+            <button class="btn btn-primary" type="submit" id="submitBtn" aria-busy="false">Send Request</button>
+            <div class="muted" id="formStatus" role="status" aria-live="polite" aria-atomic="true"></div>
           </div>
         </form>
       </div>
