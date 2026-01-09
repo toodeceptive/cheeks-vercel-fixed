@@ -1,0 +1,69 @@
+# PRODIGY PHANTASM — CHEEKS PRESENTATION FINALIZATION ENGINE v2.0 (EXECUTE + VERIFY + SHIP)
+# Mission: Using (1) the provided GitHub zip repo, (2) all project conversation context, and (3) up-to-date web research with citations,
+# produce: (A) a presentation-ready decision package for Ryan & Angela, (B) a pricing + comp proposal that is defensible,
+# and (C) a verified, fixed, and beautified landing page build with tested UX (desktop + iOS/Android).
+#
+# HARD RULES
+# - No questions. Apply defaults once, log them, proceed.
+# - Zero fluff. No meta. No repetition.
+# - For ANY numeric claim (pricing/comp/benchmarks): cite at least 2 reputable sources (3 if available).
+# - If sources conflict: show conflict, pick locality-adjusted median, explain the adjustment.
+# - Do not reveal “blueprint-level” operational details pre-deal; stage disclosure in outputs.
+
+## INPUTS (LOCKED SSOT)
+Business: Cheeks Bar & Grill (Wausau, WI)
+Owners: Ryan (BOH/head chef/ordering/execution), Angela (FOH/bar/servers)
+Constraints: small kitchen, thin BOH staffing, hiring difficulty
+Opportunity: spacious bar supports pre-booked parties/events (reduce BOH chaos)
+Offer scope: QR → landing page → event inquiry intake → event sheet → deposit trigger → reporting
+Risk: protect against idea theft; paid scope required
+Repo: Use provided GitHub zip as source of truth for current build state
+
+## PHASE 1 — VERIFY CURRENT STATE (REPO AUDIT)
+1) Unpack repo, inventory pages/routes/assets, confirm what exists and what doesn’t.
+2) Identify UX/layout issues (link order, CTA clarity, mobile).
+3) Identify broken/misleading claims vs actual code (forms, tracking, SEO, domain handling).
+OUTPUT: “Current State Truth Table” (Feature → Exists? → Evidence → Fix plan)
+
+## PHASE 2 — DEEP RESEARCH (WITH CITATIONS)
+A) Labor benchmarks (WI/Wausau-adjusted): event coordinator / event sales / marketing ops
+B) Web build + funnel pricing benchmarks: landing page build, optimization, tracking, maintenance
+C) Commission norms: events/catering/event sales (simple % ranges)
+D) Deposits + package caps rationale: reduce cancellations + protect small kitchens
+E) Domain strategy best practices: canonical domain + redirects + listing consistency
+OUTPUT: Research Summary Table (sources + ranges + applicability notes)
+
+## PHASE 3 — PRICING + ROLE RECOMMENDATION (DECISION-GRADE)
+Generate 4 compensation models:
+1) Setup + retainer
+2) Low setup + per booked event fee (deposit-cleared)
+3) Commission % (simple proxy)
+4) Part-time title (Events & Growth Coordinator) + bonus
+For each: scope, owner effort, payment triggers, tracking rules, pros/cons, admin simplicity score (1–5), anti-theft strength.
+Pick ONE recommended hybrid + negotiation band + walk-away floor.
+
+## PHASE 4 — PAGE CLEANUP + BEAUTIFICATION (EXECUTE IN REPO)
+1) Reorder CTAs for clarity: Request Event / Call / Directions / Menu / Events
+2) Fix directions UX: smart Apple-vs-Google + visible chooser near top
+3) Implement inquiry intake (if no backend): generate structured summary + copy + email draft
+4) Validate on mobile (tap targets, spacing, font sizing)
+5) Verify: all links, anchors, tel/mailto, inquiry flow
+OUTPUT: updated repo zip + change log
+
+## PHASE 5 — PRESENTATION PACKAGE (OWNER-READY)
+Deliver:
+1) 1-page executive summary (pain → system → ROI → ask)
+2) Slides outline (10–12 slides) with exact talking points
+3) “Ask Pack” scripts: SMS to Ryan, SMS to Angela, 60-sec pitch, objections
+4) Staged disclosure + access protocol
+5) Implementation plan (7–14 days) + responsibilities
+6) KPI dashboard definitions (bookings, show rate, avg party size, revenue estimate, time saved)
+
+## PHASE 6 — SHIP LOG / VERIFICATION DOCUMENT
+Create a document/log that records:
+- what was verified in repo,
+- what changed,
+- what remains blocked by owner inputs,
+- pricing decision,
+- final checklist for the presentation meeting.
+END.
