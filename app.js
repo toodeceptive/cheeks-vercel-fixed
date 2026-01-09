@@ -137,6 +137,28 @@ document.addEventListener("DOMContentLoaded", function () {
   if (guestsEl) guestsEl.addEventListener("input", updateHint);
   updateHint();
 
+  // Character counter for notes field
+  const notesEl = document.getElementById("notes");
+  const notesCounter = document.getElementById("notesCounter");
+  if (notesEl && notesCounter) {
+    /**
+     * Update character counter
+     * @returns {void}
+     */
+    function updateCounter() {
+      const length = notesEl.value.length;
+      const max = 1200;
+      notesCounter.textContent = `${length} / ${max} characters`;
+      if (length > max * 0.9) {
+        notesCounter.style.color = "rgba(239, 68, 68, 0.8)";
+      } else {
+        notesCounter.style.color = "rgba(255, 255, 255, 0.72)";
+      }
+    }
+    notesEl.addEventListener("input", updateCounter);
+    updateCounter();
+  }
+
   /**
    * Set form status message
    * @param {string} msg - Status message

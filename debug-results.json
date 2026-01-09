@@ -1,0 +1,30 @@
+﻿[
+    {
+        "Phase":  "Static",
+        "Status":  "PASS",
+        "Count":  8,
+        "Check":  "File Count"
+    },
+    {
+        "Phase":  "Security",
+        "Status":  "PASS",
+        "Check":  "Vulnerabilities"
+    },
+    {
+        "Phase":  "Runtime",
+        "Status":  "PASS",
+        "Check":  "Health"
+    },
+    {
+        "Phase":  "Runtime",
+        "Status":  "PASS",
+        "ID":  "inq_1767969235233_b9c410f4",
+        "Check":  "Form Submission"
+    },
+    {
+        "Phase":  "Performance",
+        "Status":  "PASS",
+        "Found":  3,
+        "Check":  "Optimizations"
+    }
+]

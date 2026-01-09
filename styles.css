@@ -485,6 +485,10 @@ a:focus-visible, button:focus-visible{
   outline: 2px solid rgba(224,177,91,.85);
   outline-offset: 3px;
 }
+input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline: 2px solid rgba(224,177,91,.6);
+  outline-offset: 2px;
+}
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

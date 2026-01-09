@@ -13,6 +13,7 @@
  */
 
 import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/utils.js';
+import { checkRateLimit, getClientIP } from './lib/rate-limit.js';
 
 /**
  * Check if string looks like a valid email address
@@ -132,6 +133,21 @@ export default async function handler(req, res) {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
+    // Rate limiting - prevent abuse
+    const clientIP = getClientIP(req);
+    const rateLimit = checkRateLimit(clientIP);
+    if (!rateLimit.allowed) {
+      res.setHeader('Retry-After', Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
+      res.setHeader('X-RateLimit-Limit', '10');
+      res.setHeader('X-RateLimit-Remaining', '0');
+      res.setHeader('X-RateLimit-Reset', Math.ceil(rateLimit.resetAt / 1000));
+      return bad(res, 429, 'Too many requests. Please try again later.');
+    }
+    // Set rate limit headers
+    res.setHeader('X-RateLimit-Limit', '10');
+    res.setHeader('X-RateLimit-Remaining', String(rateLimit.remaining));
+    res.setHeader('X-RateLimit-Reset', Math.ceil(rateLimit.resetAt / 1000));
+
     // Request size limit (10KB) - prevent DoS from large payloads
     const contentLength = req.headers['content-length'];
     if (contentLength && parseInt(contentLength, 10) > 10240) {
@@ -157,6 +173,15 @@ export default async function handler(req, res) {
     const name = requiredStr(b.name, 80);
     const phone = requiredStr(b.phone, 40);
     const email = requiredStr(b.email, 120);
+    
+    // Server-side phone format validation (matches client-side)
+    if (phone) {
+      // Allow common phone formats: (715) 555-1234, 715-555-1234, 7155551234, +17155551234
+      const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+      if (!phoneRegex.test(phone)) {
+        return bad(res, 400, 'Invalid phone number format');
+      }
+    }
     const eventType = requiredStr(b.eventType, 60);
     const eventDate = requiredStr(b.eventDate, 20);
     const eventTime = requiredStr(b.eventTime, 20);

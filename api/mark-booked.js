@@ -12,6 +12,7 @@
  */
 
 import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/utils.js';
+import { checkRateLimit, getClientIP } from './lib/rate-limit.js';
 
 /**
  * Constant-time string comparison to prevent timing attacks.
@@ -100,6 +101,21 @@ export default async function handler(req, res) {
     // Set security headers
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
+
+    // Rate limiting - prevent abuse
+    const clientIP = getClientIP(req);
+    const rateLimit = checkRateLimit(clientIP);
+    if (!rateLimit.allowed) {
+      res.setHeader('Retry-After', Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
+      res.setHeader('X-RateLimit-Limit', '10');
+      res.setHeader('X-RateLimit-Remaining', '0');
+      res.setHeader('X-RateLimit-Reset', Math.ceil(rateLimit.resetAt / 1000));
+      return bad(res, 429, 'Too many requests. Please try again later.');
+    }
+    // Set rate limit headers
+    res.setHeader('X-RateLimit-Limit', '10');
+    res.setHeader('X-RateLimit-Remaining', String(rateLimit.remaining));
+    res.setHeader('X-RateLimit-Reset', Math.ceil(rateLimit.resetAt / 1000));
 
     // Request size limit (10KB) - prevent DoS from large payloads
     const contentLength = req.headers['content-length'];
