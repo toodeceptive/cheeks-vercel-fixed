@@ -19,7 +19,7 @@
 Address discrepancy between codebase ("4011 E Wausau Ave") and operations log ("158241 E Wausau Ave"). However, evidence strongly supports "4011" as correct.
 
 **Evidence**:
-- Git history shows "4011" consistently since commit 97cb2df (2025-12-29)
+- Git history shows "4011" consistently since commit 97cb2df (2024-12-29)
 - Live site displays "4011 E Wausau Ave"
 - All code sources use "4011"
 - "158241" appears only in operations log (likely user error in Apple Maps report UI) and outdated verify file
