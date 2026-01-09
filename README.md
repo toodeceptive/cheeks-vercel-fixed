@@ -190,6 +190,8 @@ That makes the funnel demonstrable for the owner presentation even before full i
 - `POST /api/mark-booked` — token-protected “BOOKED” action + BOH event sheet
 
 ## Environment Variables
+See `ENV_VARIABLES.md` for complete environment variable documentation.
+
 Copy `.env.example` into Vercel env vars.
 
 ---

@@ -78,13 +78,14 @@
 - `pp_cheeks/AUDIT_FINDINGS.md` - All audit findings (10 total)
 - `pp_cheeks/SSOT.cheeks.yaml` - Single Source of Truth
 - `pp_cheeks/TASKBOARD.md` - Complete audit task history
-- `ACTION_SUMMARY_FOR_WORKSPACES.md` - Summary for all workspaces
-- `CURSOR_OPTIMIZATION_CHANGES.md` - Cursor optimization details
+- `docs/handoffs/ACTION_SUMMARY_FOR_WORKSPACES.md` - Summary for all workspaces
+- `docs/reference/CURSOR_OPTIMIZATION_CHANGES.md` - Cursor optimization details
 
 ### Implementation Guides
 - `docs/reference/QR_CODE_UPDATE_INSTRUCTIONS.md` - QR code update steps
 - `docs/reference/GOOGLE_BUSINESS_PROFILE_SETUP.md` - Google Business setup
-- `NEXT_STEPS.md` - Quick action reference
+- `docs/reference/NEXT_STEPS.md` - Quick action reference
+- `ENV_VARIABLES.md` - Environment variables reference
 
 ### Code Files
 - `schema.json` - Structured data (needs Google Business URL)
