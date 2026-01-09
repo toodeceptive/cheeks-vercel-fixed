@@ -106,8 +106,8 @@
 **Manual Removal**:
 ```powershell
 # Remove each detached HEAD worktree
-git worktree remove C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/fxc
-git worktree remove C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/ins
+git worktree remove <worktree-path>
+# Use `git worktree list` to identify worktrees, then remove unused ones
 # ... (repeat for each)
 ```
 
@@ -131,7 +131,7 @@ git worktree remove C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/ins
 
 ### Step 2: Delete Desktop Originals (Optional)
 **After Verification**:
-1. Delete `C:\Users\LegiT\Desktop\Cheek's Bar & Grill\` folder
+1. Delete desktop folder (`$env:USERPROFILE\Desktop\Cheek's Bar & Grill\`)
 2. Delete individual project files from desktop
 3. Delete QR code PDF from desktop (already archived)
 

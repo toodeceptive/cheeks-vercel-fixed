@@ -68,7 +68,7 @@ https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent
 ### Steps to Complete
 
 1. **Open QR Code PDF**
-   - Location: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+   - Location: Desktop (archived in project)
 
 2. **Generate New QR Code**
    - Use any QR code generator (e.g., https://www.qr-code-generator.com/)
@@ -77,7 +77,7 @@ https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent
 
 3. **Replace Existing PDF**
    - Save new QR code as PDF
-   - Replace existing file at `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+   - Replace existing file on desktop (if still there)
 
 4. **Optional: Save PNG Version**
    - Save as PNG: `assets/images/qr-table-tent.png`

@@ -2,7 +2,7 @@
 
 ## Status
 **Current**: QR code PDF exists but missing source parameter  
-**File Location**: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`  
+**File Location**: Desktop (or archived in `docs/archive/desktop-files/comprehensive-cleanup/pdfs/`)  
 **Action Required**: Update QR code URL to include `?src=qr-table-tent` parameter
 
 ## Why This Matters

@@ -37,10 +37,10 @@ This plan provides a systematic approach to cleaning all project-related files a
 ---
 
 ### Phase 2: Desktop Files Cleanup
-**Location**: `C:\Users\LegiT\Desktop`
+**Location**: Desktop (`$env:USERPROFILE\Desktop`)
 
 #### 2.1 Desktop Folder: `Cheek's Bar & Grill\`
-**Location**: `C:\Users\LegiT\Desktop\Cheek's Bar & Grill\`
+**Location**: Desktop folder (`$env:USERPROFILE\Desktop\Cheek's Bar & Grill\`)
 
 **Files Identified** (from SSOT):
 - `Cheeks Logo.jpg`
@@ -59,7 +59,7 @@ This plan provides a systematic approach to cleaning all project-related files a
 **Script**: Create `tools/cleanup-desktop-folder.ps1`
 
 #### 2.2 Desktop QR Code PDF
-**Location**: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+**Location**: Desktop (archived in project)
 
 **Status**: Already copied to `docs/presentations/desktop-archive/pdfs/`
 
@@ -79,10 +79,10 @@ This plan provides a systematic approach to cleaning all project-related files a
 ---
 
 ### Phase 3: Downloads Folder Cleanup
-**Location**: `C:\Users\LegiT\Downloads`
+**Location**: Downloads folder (`$env:USERPROFILE\Downloads`)
 
 #### 3.1 Project Folder
-**Location**: `C:\Users\LegiT\Downloads\cheeks-vercel-fixed`
+**Location**: Downloads folder (project root)
 
 **Status**: This is the active project folder
 
@@ -173,9 +173,9 @@ This plan provides a systematic approach to cleaning all project-related files a
 
 ### Phase 6: Personal Documents Cleanup
 **Locations to Check**:
-- `C:\Users\LegiT\Documents\`
-- `C:\Users\LegiT\OneDrive\` (if applicable)
-- `C:\Users\LegiT\Pictures\` (if project images stored there)
+- Documents folder (`$env:USERPROFILE\Documents`)
+- OneDrive folder (`$env:USERPROFILE\OneDrive` - if applicable)
+- Pictures folder (`$env:USERPROFILE\Pictures` - if project images stored there)
 
 #### 6.1 Documents Folder
 **Action Plan**:

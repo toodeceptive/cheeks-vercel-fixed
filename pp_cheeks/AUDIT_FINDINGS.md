@@ -88,7 +88,7 @@ Monitor Apple Maps for pin update or confirmation notification.
 QR code PDF exists but URL doesn't include source parameter (`?src=qr-table-tent`), limiting source tracking capability.
 
 **Evidence**:
-- QR code file: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+- QR code file: Desktop (archived in project)
 - Current URL: `https://cheeks-bar-and-grill.vercel.app/`
 - Recommended URL: `https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent`
 - Multiple docs reference this gap

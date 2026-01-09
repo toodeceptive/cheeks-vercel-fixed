@@ -19,7 +19,7 @@
 | SL-008 | 4 | 2025-01-XX | VERIFICATION | web | browser_navigate | - | - | Live site verified | `https://cheeks-bar-and-grill.vercel.app` | Agent 4 verification |
 | SL-009 | 4 | 2025-01-XX | VERIFICATION | web | browser_navigate | - | robots.txt, sitemap.xml | SEO files verified | Live URLs | Agent 4 verification |
 | SL-010 | 4 | 2025-01-XX | DISCOVERY | web | nslookup | - | cheeksbar.com | Domain resolves to Cloudflare | DNS output | Agent 4 discovery |
-| SL-011 | 5 | 2025-01-XX | DISCOVERY | non_repo | list_dir | - | - | Desktop files cataloged | `C:\Users\LegiT\Desktop` | Agent 5 discovery |
+| SL-011 | 5 | 2025-01-XX | DISCOVERY | non_repo | list_dir | - | - | Desktop files cataloged | Desktop (non-repo) | Agent 5 discovery |
 
 ---
 

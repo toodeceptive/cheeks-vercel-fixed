@@ -126,8 +126,8 @@ git push origin --delete shipset-v1-fix
 .\tools\cleanup-worktrees.ps1
 
 # Or manually remove detached HEAD worktrees
-git worktree remove C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/fxc
-# (repeat for each detached HEAD worktree)
+git worktree remove <worktree-path>
+# Use `git worktree list` to see all worktrees, then remove unused ones
 ```
 
 #### 4. Review Tags
@@ -143,7 +143,7 @@ git worktree remove C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/fxc
 1. Review archived files in `docs/archive/desktop-files/`
 2. Verify all important files are archived
 3. Delete desktop originals if desired:
-   - `C:\Users\LegiT\Desktop\Cheek's Bar & Grill\` folder
+   - Desktop folder (`$env:USERPROFILE\Desktop\Cheek's Bar & Grill\`)
    - Individual project files on desktop
 
 ### Downloads Files

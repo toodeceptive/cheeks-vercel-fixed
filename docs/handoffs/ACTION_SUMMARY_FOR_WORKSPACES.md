@@ -25,7 +25,7 @@
 - **Status**: Documentation created, requires external action
 - **File**: `docs/reference/QR_CODE_UPDATE_INSTRUCTIONS.md`
 - **Action**: Update QR code PDF with `?src=qr-table-tent` parameter
-- **Location**: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+- **Location**: Desktop (archived in project)
 
 #### ⚠️ PATCH-005: Google Business Profile URL
 - **Status**: Documentation created, requires business owner input

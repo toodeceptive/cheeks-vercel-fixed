@@ -19,7 +19,7 @@
 ### 1. Update QR Code (15 minutes) - HIGH PRIORITY
 **File**: `docs/reference/QR_CODE_UPDATE_INSTRUCTIONS.md`
 
-1. Open QR code PDF: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+1. Open QR code PDF (on desktop or archived in project)
 2. Generate new QR code with URL: `https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent`
 3. Save and test
 

@@ -48,7 +48,7 @@ async function generateQRCode() {
     console.log(`\n📋 Next steps:`);
     console.log(`   1. Test the QR code by scanning it`);
     console.log(`   2. Verify it opens: ${QR_URL}`);
-    console.log(`   3. Update the PDF at: C:\\Users\\LegiT\\Desktop\\cheeks-bar-and-grill-qr.pdf`);
+    console.log(`   3. Update the PDF on your desktop (if needed)`);
     console.log(`   4. Use this PNG for web/digital use`);
     
   } catch (error) {

@@ -6,8 +6,8 @@ $worktrees = git worktree list --porcelain | Select-String "worktree" | ForEach-
 Write-Host "=== Worktree Cleanup Analysis ===" -ForegroundColor Cyan
 Write-Host ""
 
-# Main worktree (keep)
-$mainWorktree = "C:/Users/LegiT/Downloads/cheeks-vercel-fixed"
+# Main worktree (keep) - use current location or environment variable
+$mainWorktree = if ($env:PROJECT_ROOT) { $env:PROJECT_ROOT } else { (Get-Location).Path }
 Write-Host "Main worktree (KEEP): $mainWorktree" -ForegroundColor Green
 
 # Current worktree (keep if active)

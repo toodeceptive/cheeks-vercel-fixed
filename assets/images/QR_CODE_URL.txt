@@ -21,7 +21,7 @@ Implementation Details:
 
 Next Steps:
 -----------
-1. Open QR code PDF: C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf
+1. Open QR code PDF (on desktop or archived in project)
 2. Use QR code generator (e.g., https://www.qr-code-generator.com/)
 3. Generate new QR code with URL above
 4. Replace existing PDF

@@ -112,7 +112,7 @@ cheeks-vercel-fixed/
    - **Time**: 15 minutes
    - **Priority**: HIGH
    - **Guide**: `docs/reference/QR_CODE_UPDATE_INSTRUCTIONS.md`
-   - **Location**: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+   - **Location**: Desktop (archived to `docs/archive/desktop-files/comprehensive-cleanup/pdfs/`)
    - **Action**: Update QR code URL to include `?src=qr-table-tent`
 
 4. **PATCH-005**: Google Business Profile URL
@@ -148,7 +148,7 @@ cheeks-vercel-fixed/
 **Why**: Highest ROI, unblocked, quick win (15 minutes)
 
 **Steps**:
-1. Open QR code PDF: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+1. Open QR code PDF (archived in project or on desktop)
 2. Generate new QR code with URL: `https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent`
 3. Save updated QR code (replace existing PDF)
 4. Optional: Save PNG to `assets/images/qr-table-tent.png`
@@ -273,9 +273,9 @@ cheeks-vercel-fixed/
 - **Recommended QR URL**: `https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent`
 
 ### Git Worktrees
-- **Main**: `C:/Users/LegiT/Downloads/cheeks-vercel-fixed` (main branch)
-- **Multi-Agent-Clean**: `C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/multi-agent-clean`
-- **Yin**: `C:/Users/LegiT/.cursor/worktrees/cheeks-vercel-fixed/yin`
+- **Main**: Project root (main branch)
+- **Other Worktrees**: Use `git worktree list` to see all worktrees
+- **Note**: Remove unused worktrees with `git worktree remove <path>`
 
 ---
 

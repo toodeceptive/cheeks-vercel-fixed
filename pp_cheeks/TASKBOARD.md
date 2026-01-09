@@ -9,9 +9,9 @@
 
 ### LOCAL_ROOTS
 - **repo_roots**: 
-  - `c:\Users\LegiT\Downloads\cheeks-vercel-fixed`
+  - Project root directory (current working directory)
 - **non_repo_roots**: 
-  - `C:\Users\LegiT\Desktop` (for PDFs, screenshots, non-repo assets)
+  - Desktop (for PDFs, screenshots, non-repo assets - use $env:USERPROFILE\Desktop)
 
 ### WEB_TARGETS
 - **domains**: 
