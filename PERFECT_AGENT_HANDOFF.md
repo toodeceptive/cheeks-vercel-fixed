@@ -262,7 +262,7 @@ cheeks-vercel-fixed/
 ## 🔍 QUICK REFERENCE
 
 ### File Locations
-- **QR Code PDF**: `C:\Users\LegiT\Desktop\cheeks-bar-and-grill-qr.pdf`
+- **QR Code PDF**: Archived in `docs/archive/desktop-files/comprehensive-cleanup/pdfs/`
 - **Schema**: `schema.json`
 - **Main Page**: `index.html`
 - **Verification**: `verify/schema_presence_proof.txt` ✅ Updated

@@ -103,6 +103,10 @@ $byType = @{
 }
 
 foreach ($filePath in $allFiles) {
+    # Skip if file doesn't exist (temp files may be deleted)
+    if (-not (Test-Path $filePath)) {
+        continue
+    }
     $file = Get-Item $filePath
     $ext = $file.Extension.ToLower()
     
@@ -157,10 +161,14 @@ if (-not $DryRun) {
     $archived = 0
     $skipped = 0
     
-    foreach ($filePath in $allFiles) {
-        $file = Get-Item $filePath
-        
-        # Create subdirectory based on file type
+foreach ($filePath in $allFiles) {
+    # Skip if file doesn't exist (temp files may be deleted)
+    if (-not (Test-Path $filePath)) {
+        continue
+    }
+    $file = Get-Item $filePath
+    
+    # Create subdirectory based on file type
         $subDir = switch ($file.Extension.ToLower()) {
             ".pdf" { "pdfs" }
             ".zip" { "zips" }
