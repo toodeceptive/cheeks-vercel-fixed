@@ -1,14 +1,32 @@
+/**
+ * Admin interface JavaScript
+ * Handles event booking and preview functionality
+ */
 (function(){
+  /**
+   * Get element by ID
+   * @param {string} id - Element ID
+   * @returns {HTMLElement|null} Found element or null
+   */
   const $ = (id)=>document.getElementById(id);
   const status = $('status');
   const frame = $('previewFrame');
 
+  /**
+   * Generate inquiry ID based on current date/time
+   * @returns {string} Inquiry ID
+   */
   function nowId(){
     const d = new Date();
     const pad = (n)=>String(n).padStart(2,'0');
     return `inq_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
   }
 
+  /**
+   * Build payload object from form
+   * @param {boolean} preview - Whether this is a preview request
+   * @returns {Object} Payload object
+   */
   function payload(preview){
     const id = $('id').value.trim() || nowId();
     $('id').value = id;
@@ -30,6 +48,11 @@
     };
   }
 
+  /**
+   * Call mark-booked API endpoint
+   * @param {boolean} preview - Whether this is a preview request
+   * @returns {Promise<void>}
+   */
   async function callMarkBooked(preview){
     if (!status) return;
     status.textContent = 'Working...';
@@ -72,6 +95,7 @@
     }catch(e){
       const errorMsg = (e && e.message) ? e.message : String(e);
       status.textContent = 'ERROR: ' + errorMsg;
+      // eslint-disable-next-line no-console
       console.error('Admin API call error:', e);
     }
   }

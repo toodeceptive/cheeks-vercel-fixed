@@ -14,12 +14,21 @@
 
 import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/utils.js';
 
+/**
+ * Check if string looks like a valid email address
+ * @param {string} s - String to check
+ * @returns {boolean} True if string looks like email
+ */
 function looksLikeEmail(s) {
   // lightweight sanity check (server-side validation still keeps delivery optional)
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || '').trim());
 }
 
-
+/**
+ * Validate date string format (YYYY-MM-DD)
+ * @param {string} dateStr - Date string to validate
+ * @returns {boolean} True if valid date format
+ */
 function isValidDate(dateStr) {
   if (!dateStr || typeof dateStr !== 'string') return false;
   // Check format YYYY-MM-DD
@@ -29,6 +38,11 @@ function isValidDate(dateStr) {
   return d instanceof Date && !isNaN(d) && d.toISOString().startsWith(dateStr);
 }
 
+/**
+ * Check if date is in the future (UTC)
+ * @param {string} dateStr - Date string to check
+ * @returns {boolean} True if date is today or future
+ */
 function isFutureDate(dateStr) {
   if (!isValidDate(dateStr)) return false;
   // Both client and server use UTC for consistent validation.
@@ -42,6 +56,11 @@ function isFutureDate(dateStr) {
   return selected >= todayUTC;
 }
 
+/**
+ * Validate time string format (HH:MM or HH:MM AM/PM)
+ * @param {string} timeStr - Time string to validate
+ * @returns {boolean} True if valid time format
+ */
 function isValidTime(timeStr) {
   if (!timeStr || typeof timeStr !== 'string') return false;
   const trimmed = timeStr.trim();
@@ -51,7 +70,22 @@ function isValidTime(timeStr) {
          /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i.test(trimmed);
 }
 
-
+/**
+ * Build HTML email body for inquiry notification
+ * @param {Object} payload - Inquiry payload object
+ * @param {string} payload.name - Customer name
+ * @param {string} payload.phone - Customer phone
+ * @param {string} payload.email - Customer email
+ * @param {string} payload.eventType - Event type
+ * @param {string} payload.eventDate - Event date
+ * @param {string} payload.eventTime - Event time
+ * @param {number} payload.guests - Number of guests
+ * @param {string} payload.package - Package selection
+ * @param {string} payload.notes - Additional notes
+ * @param {string} payload.src - Source tracking
+ * @param {string} payload.pageUrl - Page URL
+ * @returns {string} HTML email body
+ */
 function buildEmailHtml(payload) {
   const rows = [
     ['Name', payload.name],
@@ -81,6 +115,12 @@ function buildEmailHtml(payload) {
 }
 
 
+/**
+ * Vercel serverless function handler for event inquiries
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Promise<void>}
+ */
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
@@ -97,6 +137,7 @@ export default async function handler(req, res) {
     // Honeypot - silently ignore bot submissions
     if (typeof b.company === 'string' && b.company.trim().length > 0) {
       // Log honeypot hits for monitoring (but don't expose this to client)
+      // eslint-disable-next-line no-console
       console.log('CHEEKS_HONEYPOT', { ip: (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim() || 'unknown' });
       return res.status(200).json({ ok: true, id: 'hp', status: 'ignored' });
     }
@@ -153,6 +194,7 @@ export default async function handler(req, res) {
     };
 
     // Always log (so even without integrations, you have server logs in Vercel)
+    // eslint-disable-next-line no-console
     console.log('CHEEKS_INQUIRY', JSON.stringify(payload));
 
     // Optional: notify owners via Resend
@@ -175,6 +217,7 @@ export default async function handler(req, res) {
       });
     } catch (e) {
       emailResult = { sent: false, reason: String(e && e.message ? e.message : e) };
+      // eslint-disable-next-line no-console
       console.error('CHEEKS_EMAIL_ERR', { error: String(e), inquiryId: id });
     }
 
@@ -225,6 +268,7 @@ export default async function handler(req, res) {
     };
     res.status(200).json(response);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('CHEEKS_INQUIRY_ERR', err);
     return bad(res, 500, 'Server error');
   }

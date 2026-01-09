@@ -18,6 +18,9 @@ import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/ut
  * Returns true if strings are equal, false otherwise.
  * Always performs the same operations regardless of length differences
  * to prevent attackers from determining the expected token length.
+ * @param {string} a - First string
+ * @param {string} b - Second string
+ * @returns {boolean} True if strings are equal
  */
 function constantTimeEquals(a, b) {
   // Use the maximum length to ensure we always perform the same number of operations
@@ -36,6 +39,23 @@ function constantTimeEquals(a, b) {
 }
 
 
+/**
+ * Build HTML email body for event sheet
+ * @param {Object} payload - Event payload object
+ * @param {string} payload.eventType - Event type
+ * @param {string} payload.eventDate - Event date
+ * @param {string} payload.eventTime - Event time
+ * @param {string} payload.guests - Number of guests
+ * @param {string} payload.package - Package selection
+ * @param {string} payload.deposit - Deposit amount
+ * @param {string} payload.minimumSpend - Minimum spend
+ * @param {string} payload.name - Customer name
+ * @param {string} payload.phone - Customer phone
+ * @param {string} payload.email - Customer email
+ * @param {string} payload.notes - Additional notes
+ * @param {string} payload.src - Source tracking
+ * @returns {string} HTML email body
+ */
 function eventSheetHtml(payload) {
   const lines = [
     ['Status', 'BOOKED (deposit paid)'],
@@ -64,6 +84,12 @@ function eventSheetHtml(payload) {
   </body></html>`;
 }
 
+/**
+ * Vercel serverless function handler for marking inquiries as booked
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Promise<void>}
+ */
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
@@ -112,6 +138,7 @@ export default async function handler(req, res) {
       minimumSpend: requiredStr(b.minimumSpend || '', 40),
     };
 
+    // eslint-disable-next-line no-console
     console.log('CHEEKS_BOOKED', JSON.stringify({ ...payload, ts: new Date().toISOString(), status: 'BOOKED' }));
 
     const ownerList = (process.env.OWNER_NOTIFY_EMAILS || 'cheeksbandg@gmail.com')
@@ -139,6 +166,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true, id, status: 'BOOKED', email: emailResult.sent ? 'sent' : 'not_sent' });
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('CHEEKS_BOOKED_ERR', err);
     return bad(res, 500, 'Server error');
   }

@@ -2,6 +2,9 @@
  * /api/health
  * Simple health check endpoint for monitoring and uptime checks.
  * Returns service status and timestamp.
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Promise<void>}
  */
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');

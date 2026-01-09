@@ -8,18 +8,21 @@
  * @param {Object} res - Express response object
  * @param {number} code - HTTP status code
  * @param {string} msg - Error message
+ * @returns {void}
  */
 export function bad(res, code, msg) {
   res.status(code).json({ ok: false, error: msg });
-  // Log error for monitoring
+  // Log error for monitoring (intentional console usage for serverless logging)
+  // eslint-disable-next-line no-console
   if (code >= 500) {
+    // eslint-disable-next-line no-console
     console.error('CHEEKS_API_ERROR', { code, msg, ts: new Date().toISOString() });
   }
 }
 
 /**
  * Validate and sanitize string input
- * @param {*} v - Input value
+ * @param {unknown} v - Input value
  * @param {number} maxLen - Maximum length
  * @returns {string} Sanitized string or empty string
  */
@@ -32,7 +35,7 @@ export function requiredStr(v, maxLen) {
 
 /**
  * Validate and sanitize number input
- * @param {*} v - Input value
+ * @param {unknown} v - Input value
  * @param {number} min - Minimum value
  * @param {number} max - Maximum value
  * @returns {number|null} Valid number or null
@@ -66,7 +69,7 @@ export function htmlEscape(s) {
  * @param {string} params.subject - Email subject
  * @param {string} params.html - HTML email body
  * @param {string} [params.replyTo] - Reply-to email (optional)
- * @returns {Promise<Object>} Result object with sent status
+ * @returns {Promise<{sent: boolean, reason?: string, raw?: string}>} Result object with sent status
  */
 export async function sendResendEmail({ to, from, subject, html, replyTo }) {
   const apiKey = process.env.RESEND_API_KEY;

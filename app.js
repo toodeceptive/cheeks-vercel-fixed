@@ -1,4 +1,14 @@
+/**
+ * Main application JavaScript
+ * Handles navigation, form submission, and image fallbacks
+ */
 (function () {
+  /**
+   * Query selector helper
+   * @param {string} q - CSS selector
+   * @param {Document|Element} [el=document] - Element to search within
+   * @returns {Element|null} Found element or null
+   */
   const $ = (q, el = document) => el.querySelector(q);
 
   // Footer year
@@ -73,6 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("eventForm");
   if (!form) return;
 
+  /**
+   * Get URL parameter value
+   * @param {string} name - Parameter name
+   * @returns {string} Parameter value or empty string
+   */
   function getParam(name) {
     try {
       const u = new URL(window.location.href);
@@ -109,6 +124,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Deposit hint for 13+ guests
+  /**
+   * Update deposit hint based on guest count
+   * @returns {void}
+   */
   function updateHint() {
     if (!guestsEl || !hintEl) return;
     const n = Number(guestsEl.value || 0);
@@ -118,10 +137,19 @@ document.addEventListener("DOMContentLoaded", function () {
   if (guestsEl) guestsEl.addEventListener("input", updateHint);
   updateHint();
 
+  /**
+   * Set form status message
+   * @param {string} msg - Status message
+   * @returns {void}
+   */
   function setStatus(msg) {
     if (statusEl) statusEl.textContent = msg || "";
   }
 
+  /**
+   * Build payload object from form data
+   * @returns {Object} Form payload object
+   */
   function payloadFromForm() {
     const fd = new FormData(form);
     const obj = {};
@@ -201,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "/thank-you.html" + (qs.toString() ? ("?" + qs.toString()) : "");
     } catch (err) {
       setStatus("Couldn't send right now. Please call (715) 393-4026.");
+      // eslint-disable-next-line no-console
       console.error(err);
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = "Send Request"; }

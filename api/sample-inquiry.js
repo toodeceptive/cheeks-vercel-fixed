@@ -3,6 +3,14 @@
  * Generates a deterministic sample inquiry payload for demos.
  * No secrets required. Not indexed. Safe to call.
  */
+
+/**
+ * Send JSON response
+ * @param {Object} res - Response object
+ * @param {number} code - HTTP status code
+ * @param {Object} obj - Object to send as JSON
+ * @returns {void}
+ */
 function json(res, code, obj) {
   res.status(code)
     .setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -11,10 +19,22 @@ function json(res, code, obj) {
   res.end(JSON.stringify(obj));
 }
 
+/**
+ * Pick element from array by index (wraps around)
+ * @param {Array} arr - Array to pick from
+ * @param {number} i - Index
+ * @returns {*} Element from array
+ */
 function pick(arr, i) {
   return arr[i % arr.length];
 }
 
+/**
+ * Vercel serverless function handler for sample inquiry generation
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @returns {Promise<void>}
+ */
 export default async function handler(req, res) {
   // Only allow GET requests
   if (req.method !== 'GET') {
