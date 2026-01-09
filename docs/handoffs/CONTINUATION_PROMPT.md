@@ -4,7 +4,7 @@
 ```
 I'm continuing work on the Cheeks Bar & Grill project. Please:
 
-1. Read AGENT_HANDOFF.md to understand the current state
+1. Read PERFECT_AGENT_HANDOFF.md to understand the current state
 2. Review pp_cheeks/PATCH_QUEUE.md for pending patches
 3. Check what actions are ready to proceed (PATCH-004, PATCH-005)
 4. Start with the highest priority actionable patch

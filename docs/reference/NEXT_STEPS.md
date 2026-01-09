@@ -58,6 +58,6 @@
 
 ## 🤖 For AI Agents Continuing Work
 
-**Start Here**: Read `AGENT_HANDOFF.md` for complete context  
+**Start Here**: Read `PERFECT_AGENT_HANDOFF.md` for complete context  
 **Quick Start**: Use `CONTINUATION_PROMPT.md` in "Agents in Command" tab  
 **Status**: All optimizations complete, patches documented, ready for implementation
