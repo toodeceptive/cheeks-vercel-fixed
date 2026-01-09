@@ -66,8 +66,16 @@
         const u = new URL(window.location.href);
         const id = u.searchParams.get('id');
         const refEl = document.getElementById('ref');
-        if (refEl) {
-          refEl.textContent = id ? id : '—';
+        if (refEl && id) {
+          // Validate reference ID format (alphanumeric, underscore, hyphen only)
+          // This prevents XSS if ID contains malicious content (defense in depth)
+          if (/^[a-zA-Z0-9_-]+$/.test(id)) {
+            refEl.textContent = id;
+          } else {
+            refEl.textContent = '—';
+          }
+        } else if (refEl) {
+          refEl.textContent = '—';
         }
       } catch(e) {
         // Silently fail if URL parsing is not supported

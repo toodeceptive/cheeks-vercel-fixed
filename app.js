@@ -163,8 +163,16 @@ document.addEventListener("DOMContentLoaded", function () {
     return obj;
   }
 
+  // Form submission lock to prevent race conditions
+  let isSubmitting = false;
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
+    
+    // Prevent duplicate submissions
+    if (isSubmitting || (btn && btn.disabled)) return;
+    
+    isSubmitting = true;
     setStatus("");
 
     // Basic client-side required checks
@@ -177,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
           el.setAttribute("aria-invalid", "true");
         }
       });
+      isSubmitting = false;
       return;
     }
     
@@ -201,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatus("Event date cannot be in the past. Please select a future date.", true);
         dateEl.setAttribute("aria-invalid", "true");
         dateEl.focus();
+        isSubmitting = false;
         return;
       }
     }
@@ -212,6 +222,22 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatus("Number of guests must be between 1 and 200.", true);
         guestsEl.setAttribute("aria-invalid", "true");
         guestsEl.focus();
+        isSubmitting = false;
+        return;
+      }
+    }
+
+    // Basic phone number format validation
+    const phoneEl = document.getElementById("phone");
+    if (phoneEl && phoneEl.value) {
+      const phone = phoneEl.value.trim();
+      // Allow common phone formats: (715) 555-1234, 715-555-1234, 7155551234, +17155551234
+      const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+      if (!phoneRegex.test(phone)) {
+        setStatus("Please enter a valid phone number.", true);
+        phoneEl.setAttribute("aria-invalid", "true");
+        phoneEl.focus();
+        isSubmitting = false;
         return;
       }
     }
@@ -220,11 +246,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const hp = document.getElementById("company");
     if (hp && hp.value && hp.value.trim().length > 0) {
       setStatus("Thanks!");
+      isSubmitting = false;
       return;
     }
-
-    // Prevent duplicate submissions
-    if (btn && btn.disabled) return;
     
     if (btn) { 
       btn.disabled = true; 
@@ -272,6 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // eslint-disable-next-line no-console
       console.error(err);
     } finally {
+      isSubmitting = false;
       if (btn) { 
         btn.disabled = false; 
         btn.textContent = "Send Request";

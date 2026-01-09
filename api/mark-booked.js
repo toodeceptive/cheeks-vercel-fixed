@@ -101,6 +101,12 @@ export default async function handler(req, res) {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
+    // Request size limit (10KB) - prevent DoS from large payloads
+    const contentLength = req.headers['content-length'];
+    if (contentLength && parseInt(contentLength, 10) > 10240) {
+      return bad(res, 413, 'Request too large');
+    }
+
     // Security: Validate admin token
     const token = (req.headers['x-admin-token'] || '').toString().trim();
     const expected = process.env.ADMIN_TOKEN;
@@ -111,6 +117,12 @@ export default async function handler(req, res) {
     }
 
     const b = req.body || {};
+    
+    // Additional size check on parsed body (safety net)
+    const bodyStr = JSON.stringify(b);
+    if (bodyStr.length > 10240) {
+      return bad(res, 413, 'Request too large');
+    }
     const id = requiredStr(b.id, 80);
     if (!id) return bad(res, 400, 'Missing id');
 
