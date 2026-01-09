@@ -33,4 +33,4 @@
 **Next Actions**: 
 1. Add Google Business Profile URL (PATCH-005) - 10 minutes (after getting URL from owners)
 
-**See**: `AGENT_HANDOFF.md` for continuation instructions
+**See**: `PERFECT_AGENT_HANDOFF.md` for continuation instructions

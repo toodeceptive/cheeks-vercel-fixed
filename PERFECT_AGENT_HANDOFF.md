@@ -177,7 +177,7 @@ cheeks-vercel-fixed/
 ## 📁 ESSENTIAL DOCUMENTS FOR NEW AGENTS
 
 ### Must Read First
-1. **`AGENT_HANDOFF.md`** - Current handoff document (detailed)
+1. **`PERFECT_AGENT_HANDOFF.md`** - Current handoff document (this file)
 2. **`pp_cheeks/PATCH_QUEUE.md`** - Complete patch status
 3. **`pp_cheeks/SSOT.cheeks.yaml`** - Single Source of Truth
 
@@ -194,8 +194,8 @@ cheeks-vercel-fixed/
 
 ### Strategic Documents
 - **`COMPREHENSIVE_STRATEGIC_ANALYSIS.md`** - Full strategic analysis
-- **`NEXT_BEST_ACTION.md`** - Immediate recommendation
-- **`LINTER_FIXES_COMPLETE.md`** - Linter fixes documentation
+- **`NEXT_BEST_ACTIONS_PRIORITIZED.md`** - Prioritized action plan
+- **`COMPREHENSIVE_TEST_RESULTS.md`** - Complete test results
 
 ---
 
