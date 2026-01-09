@@ -11,13 +11,7 @@
  * - FROM_EMAIL (optional)
  */
 
-function bad(res, code, msg) {
-  res.status(code).json({ ok: false, error: msg });
-  // Log error for monitoring
-  if (code >= 500) {
-    console.error('CHEEKS_BOOKED_API_ERROR', { code, msg, ts: new Date().toISOString() });
-  }
-}
+import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/utils.js';
 
 /**
  * Constant-time string comparison to prevent timing attacks.
@@ -41,46 +35,6 @@ function constantTimeEquals(a, b) {
   return result === 0 && a.length === b.length;
 }
 
-function requiredStr(v, maxLen) {
-  if (typeof v !== 'string') return '';
-  const s = v.trim();
-  if (!s) return '';
-  return s.slice(0, maxLen);
-}
-
-function safeNum(v, min, max) {
-  const n = Number(v);
-  if (!Number.isFinite(n)) return null;
-  if (n < min || n > max) return null;
-  return Math.floor(n);
-}
-
-function htmlEscape(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-async function sendResendEmail({ to, from, subject, html }) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return { sent: false, reason: 'RESEND_API_KEY not set' };
-
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json; charset=utf-8'
-    },
-    body: JSON.stringify({ from, to, subject, html })
-  });
-
-  const text = await r.text();
-  if (!r.ok) return { sent: false, reason: `Resend error ${r.status}: ${text.slice(0, 300)}` };
-  return { sent: true, raw: text };
-}
 
 function eventSheetHtml(payload) {
   const lines = [

@@ -12,32 +12,13 @@
  * - FROM_EMAIL (must be verified in Resend) e.g. "Cheeks <noreply@yourdomain.com>"
  */
 
-function bad(res, code, msg) {
-  res.status(code).json({ ok: false, error: msg });
-  // Log error for monitoring
-  if (code >= 500) {
-    console.error('CHEEKS_API_ERROR', { code, msg, ts: new Date().toISOString() });
-  }
-}
-
-function requiredStr(v, maxLen) {
-  if (typeof v !== 'string') return '';
-  const s = v.trim();
-  if (!s) return '';
-  return s.slice(0, maxLen);
-}
+import { bad, requiredStr, safeNum, htmlEscape, sendResendEmail } from './lib/utils.js';
 
 function looksLikeEmail(s) {
   // lightweight sanity check (server-side validation still keeps delivery optional)
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || '').trim());
 }
 
-function safeNum(v, min, max) {
-  const n = Number(v);
-  if (!Number.isFinite(n)) return null;
-  if (n < min || n > max) return null;
-  return Math.floor(n);
-}
 
 function isValidDate(dateStr) {
   if (!dateStr || typeof dateStr !== 'string') return false;
@@ -70,14 +51,6 @@ function isValidTime(timeStr) {
          /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i.test(trimmed);
 }
 
-function htmlEscape(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 function buildEmailHtml(payload) {
   const rows = [
@@ -107,33 +80,6 @@ function buildEmailHtml(payload) {
   </body></html>`;
 }
 
-async function sendResendEmail({ to, from, subject, html, replyTo }) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return { sent: false, reason: 'RESEND_API_KEY not set' };
-
-  const body = {
-    from,
-    to,
-    subject,
-    html,
-  };
-  if (replyTo) body.reply_to = replyTo;
-
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json; charset=utf-8'
-    },
-    body: JSON.stringify(body)
-  });
-
-  const text = await r.text();
-  if (!r.ok) {
-    return { sent: false, reason: `Resend error ${r.status}: ${text.slice(0, 300)}` };
-  }
-  return { sent: true, raw: text };
-}
 
 export default async function handler(req, res) {
   try {

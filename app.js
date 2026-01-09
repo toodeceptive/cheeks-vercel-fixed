@@ -44,11 +44,11 @@
 /* Image fallback handlers (replaces inline onerror so CSP can be strict) */
 document.addEventListener("DOMContentLoaded", function () {
   // Hero image fallback
-  var hero = document.getElementById("heroImg");
+  const hero = document.getElementById("heroImg");
   if (hero) {
     hero.addEventListener("error", function () {
       try {
-        var frame = hero.closest(".media-frame");
+        const frame = hero.closest(".media-frame");
         if (frame) frame.classList.add("noimg");
         hero.remove();
       } catch (e) { /* noop */ }
@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Staff image fallback
-  var staff = document.getElementById("staffImg");
+  const staff = document.getElementById("staffImg");
   if (staff) {
     staff.addEventListener("error", function () {
       try {
         staff.style.display = "none";
-        var parent = staff.closest(".about-image");
+        const parent = staff.closest(".about-image");
         if (parent) parent.classList.add("noimg");
       } catch (e) { /* noop */ }
     }, { once: true });
@@ -70,12 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* Event inquiry form */
 document.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("eventForm");
+  const form = document.getElementById("eventForm");
   if (!form) return;
 
   function getParam(name) {
     try {
-      var u = new URL(window.location.href);
+      const u = new URL(window.location.href);
       return u.searchParams.get(name) || "";
     } catch (e) {
       return "";
@@ -83,16 +83,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Source attribution: ?src=van1 or UTM fallbacks
-  var src = getParam("src") || getParam("utm_source") || getParam("utm_campaign") || "direct";
-  var srcEl = document.getElementById("src");
+  const src = getParam("src") || getParam("utm_source") || getParam("utm_campaign") || "direct";
+  const srcEl = document.getElementById("src");
   if (srcEl) srcEl.value = src;
 
   // Form elements
-  var guestsEl = document.getElementById("guests");
-  var hintEl = document.getElementById("depositHint");
-  var statusEl = document.getElementById("formStatus");
-  var btn = document.getElementById("submitBtn");
-  var dateEl = document.getElementById("eventDate");
+  const guestsEl = document.getElementById("guests");
+  const hintEl = document.getElementById("depositHint");
+  const statusEl = document.getElementById("formStatus");
+  const btn = document.getElementById("submitBtn");
+  const dateEl = document.getElementById("eventDate");
 
   // Set minimum date to today in UTC (prevents past dates in date picker)
   // HTML5 date inputs interpret the min attribute in the user's local timezone.
@@ -102,16 +102,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // Example: At 9 PM PST on Dec 30 (5 AM UTC Dec 31), min is set to Dec 31,
   // preventing selection of Dec 30 which would be rejected by validation.
   if (dateEl) {
-    var today = new Date();
+    const today = new Date();
     // Get today's date in UTC (YYYY-MM-DD format)
-    var todayStr = today.toISOString().split("T")[0];
+    const todayStr = today.toISOString().split("T")[0];
     dateEl.setAttribute("min", todayStr);
   }
 
   // Deposit hint for 13+ guests
   function updateHint() {
     if (!guestsEl || !hintEl) return;
-    var n = Number(guestsEl.value || 0);
+    const n = Number(guestsEl.value || 0);
     if (n >= 13) hintEl.textContent = "Groups of 13+ typically require a deposit to confirm the booking.";
     else if (n > 0) hintEl.textContent = "";
   }
@@ -123,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function payloadFromForm() {
-    var fd = new FormData(form);
-    var obj = {};
+    const fd = new FormData(form);
+    const obj = {};
     fd.forEach(function (v, k) { obj[k] = String(v || "").trim(); });
     obj.userAgent = navigator.userAgent;
     obj.pageUrl = window.location.href;
@@ -149,11 +149,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // "tomorrow" in UTC, validation will reject it (matching server behavior).
     if (dateEl && dateEl.value) {
       // Parse selected date as UTC midnight (matches server parsing)
-      var selected = new Date(dateEl.value + "T00:00:00Z");
+      const selected = new Date(dateEl.value + "T00:00:00Z");
       // Get today's date in UTC
-      var today = new Date();
-      var todayStr = today.toISOString().split("T")[0];
-      var todayUTC = new Date(todayStr + "T00:00:00Z");
+      const today = new Date();
+      const todayStr = today.toISOString().split("T")[0];
+      const todayUTC = new Date(todayStr + "T00:00:00Z");
       if (selected < todayUTC) {
         setStatus("Event date cannot be in the past. Please select a future date.");
         dateEl.focus();
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validate guests count matches server-side limits (1-200)
     if (guestsEl && guestsEl.value) {
-      var guests = Number(guestsEl.value);
+      const guests = Number(guestsEl.value);
       if (!Number.isFinite(guests) || guests < 1 || guests > 200) {
         setStatus("Number of guests must be between 1 and 200.");
         guestsEl.focus();
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Honeypot
-    var hp = document.getElementById("company");
+    const hp = document.getElementById("company");
     if (hp && hp.value && hp.value.trim().length > 0) {
       setStatus("Thanks!");
       return;
@@ -180,12 +180,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
     try {
-      var res = await fetch("/api/inquiry", {
+      const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=utf-8" },
         body: JSON.stringify(payloadFromForm())
       });
-      var data = null;
+      let data = null;
       try { data = await res.json(); } catch (e2) { data = {}; }
 
       if (!res.ok) {
@@ -194,8 +194,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Redirect to a clean confirmation screen for presentation clarity
       // Keep a fallback message in case navigation is blocked.
       setStatus("Request received. Redirecting…");
-      var id = (data && data.id) ? String(data.id) : "";
-      var qs = new URLSearchParams();
+      const id = (data && data.id) ? String(data.id) : "";
+      const qs = new URLSearchParams();
       if (id) qs.set("id", id);
       if (src) qs.set("src", src);
       window.location.href = "/thank-you.html" + (qs.toString() ? ("?" + qs.toString()) : "");
