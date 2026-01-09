@@ -1,0 +1,572 @@
+# CHEEKS BAR & GRILL — SINGLE SOURCE OF TRUTH (SSOT)
+# Version: 1.0 (Complete)
+# Status: COMPLETE
+# Last Updated: 2025-01-XX
+
+---
+# BUSINESS_IDENTITY: Name, Address, Phone (NAP) canonicalized
+BUSINESS_IDENTITY:
+  name:
+    field_id: "business_name"
+    immutable_id: "cheeks_business_name_001"
+    value: "Cheeks Bar and Grill"
+    canonical_title: "Cheeks Bar & Grill"  # For title tags (ampersand allowed)
+    source_ref: "index.html:35, schema.json:35"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    decisions_log:
+      - rejected: "Cheek's Bar and Grill"
+        rationale: "No apostrophe in official name"
+        source: "OPERATIONS_LOG.md:AM-F3"
+        note: "User input error in Apple Maps report"
+      - accepted: "Cheeks Bar & Grill"
+        rationale: "Ampersand acceptable in title tags for brevity"
+        source: "index.html:9"
+  
+  address:
+    field_id: "business_address"
+    immutable_id: "cheeks_address_001"
+    value: "4011 E Wausau Ave, Wausau, WI 54403"
+    streetAddress: "4011 E Wausau Ave"
+    addressLocality: "Wausau"
+    addressRegion: "WI"
+    postalCode: "54403"
+    addressCountry: "US"
+    source_ref: "index.html:41, schema.json:41, live site verification"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    conflicts:
+      - source: "OPERATIONS_LOG.md:AM-F3"
+        value: "158241 E Wausau Ave, Wausau, WI 54403"
+        status: "RESOLVED"
+        resolution: "User error in Apple Maps report UI, or Apple Maps display issue. Git history and live site confirm '4011' is correct."
+      - source: "verify/schema_presence_proof.txt:6"
+        value: "158241 E Wausau Ave"
+        status: "STALE"
+        resolution: "Outdated verification file, superseded by current code"
+    decisions_log:
+      - accepted: "4011 E Wausau Ave"
+        rationale: "Confirmed by git history (commit 97cb2df), live site verification, all code sources"
+        evidence: "agent2.git.md, agent4.web.md, agent1.local.md"
+  
+  phone:
+    field_id: "business_phone"
+    immutable_id: "cheeks_phone_001"
+    value: "+17153934026"
+    display: "(715) 393-4026"
+    source_ref: "index.html:37, schema.json:37, live site"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    decisions_log: []
+  
+  email:
+    field_id: "business_email"
+    immutable_id: "cheeks_email_001"
+    value: "cheeksbandg@gmail.com"
+    source_ref: "index.html:38, schema.json:38, live site"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    decisions_log: []
+  
+  owners:
+    field_id: "business_owners"
+    immutable_id: "cheeks_owners_001"
+    value:
+      - name: "Ryan Thomas"
+        role: "BOH/head chef/ordering/execution"
+      - name: "Angela Thomas"
+        role: "FOH/bar/servers"
+    source_ref: "index.html:160, agent5.nonrepo.md:91-95"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    decisions_log: []
+
+# BRAND_ASSETS: Logos, images, QR codes
+BRAND_ASSETS:
+  logo:
+    field_id: "brand_logo"
+    immutable_id: "asset_logo_001"
+    location: "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Logo.jpg"
+    status: "FOUND"
+    source_ref: "agent5.nonrepo.md:100"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  owner_photos:
+    field_id: "owner_photos"
+    immutable_id: "asset_owners_001"
+    locations:
+      - "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Owner (Angela Thomas).jpg"
+      - "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Owner (Ryan Thomas).jpg"
+      - "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Owners (Together).jpg"
+      - "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Owners (Together2).jpg"
+    status: "FOUND"
+    source_ref: "agent5.nonrepo.md:101-102"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  business_sign:
+    field_id: "business_sign"
+    immutable_id: "asset_sign_001"
+    location: "C:\\Users\\LegiT\\Desktop\\Cheek's Bar & Grill\\Cheeks Sign.jpg"
+    status: "FOUND"
+    source_ref: "agent5.nonrepo.md:102"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  qr_code:
+    field_id: "qr_code"
+    immutable_id: "asset_qr_001"
+    location: "C:\\Users\\LegiT\\Desktop\\cheeks-bar-and-grill-qr.pdf"
+    status: "FOUND"
+    current_url: "https://cheeks-bar-and-grill.vercel.app/"
+    recommended_url: "https://cheeks-bar-and-grill.vercel.app/?src=qr-table-tent"
+    action_required: "Update QR code PDF with source parameter"
+    source_ref: "agent5.nonrepo.md:68-71, docs/reference/CRITICAL_GAPS_AND_SOLUTIONS.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  hero_image:
+    field_id: "hero_image"
+    immutable_id: "asset_hero_001"
+    location: "assets/images/hero.png, assets/images/hero.webp"
+    status: "PRESENT"
+    source_ref: "index.html:138-139, agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  og_image:
+    field_id: "og_image"
+    immutable_id: "asset_og_001"
+    location: "assets/images/og.png, assets/images/og.webp"
+    status: "PRESENT"
+    source_ref: "index.html:20, agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  favicons:
+    field_id: "favicons"
+    immutable_id: "asset_favicons_001"
+    locations:
+      - "assets/images/favicon.ico"
+      - "assets/images/favicon.png"
+      - "assets/images/favicon-16x16.png"
+      - "assets/images/favicon-32x32.png"
+      - "assets/images/apple-touch-icon.png"
+      - "assets/images/android-chrome-192x192.png"
+      - "assets/images/android-chrome-512x512.png"
+    status: "PRESENT"
+    source_ref: "agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+
+# SITE_ARCHITECTURE: Pages, routes, API endpoints
+SITE_ARCHITECTURE:
+  pages:
+    - path: "/"
+      file: "index.html"
+      purpose: "Main landing page"
+      indexable: true
+      source_ref: "agent1.local.md"
+    - path: "/thank-you.html"
+      file: "thank-you.html"
+      purpose: "Confirmation page after form submission"
+      indexable: false
+      robots: "noindex,follow"
+      source_ref: "agent1.local.md"
+    - path: "/admin.html"
+      file: "admin.html"
+      purpose: "Admin interface for event management"
+      indexable: false
+      robots: "noindex,nofollow"
+      source_ref: "agent1.local.md"
+    - path: "/404.html"
+      file: "404.html"
+      purpose: "Custom 404 error page"
+      indexable: false
+      robots: "noindex"
+      source_ref: "agent1.local.md"
+  
+  api_endpoints:
+    - path: "/api/health"
+      file: "api/health.js"
+      method: "GET"
+      purpose: "Health check endpoint"
+      source_ref: "agent1.local.md, agent3.deploy.md"
+    - path: "/api/inquiry"
+      file: "api/inquiry.js"
+      method: "POST"
+      purpose: "Form submission handler"
+      protected: false
+      source_ref: "agent1.local.md, agent3.deploy.md"
+    - path: "/api/mark-booked"
+      file: "api/mark-booked.js"
+      method: "POST"
+      purpose: "Mark events as BOOKED (deposit paid)"
+      protected: true
+      protection: "ADMIN_TOKEN"
+      source_ref: "agent1.local.md, agent3.deploy.md"
+    - path: "/api/sample-inquiry"
+      file: "api/sample-inquiry.js"
+      method: "GET"
+      purpose: "Demo payload generator"
+      source_ref: "agent1.local.md"
+  
+  static_assets:
+    css: "styles.css"
+    js:
+      - "app.js"
+      - "admin.js"
+    images: "assets/images/"
+    icons: "assets/icons/"
+    svg: "assets/divider.svg, assets/grain.svg"
+
+# DATA_SOURCES: Menu, events, pricing sources
+DATA_SOURCES:
+  menu:
+    field_id: "menu_source"
+    immutable_id: "data_menu_001"
+    source_type: "HARDCODED"
+    location: "index.html:228-459"
+    update_method: "Manual HTML edit"
+    sections:
+      - "Appetizers" (9 items, $5.99-$13.99)
+      - "Sandys" (10 items, $11.99-$16.99)
+      - "Salads/Wraps" (3 items, $12.99)
+      - "Kids" (3 items, $5.99-$8.99)
+      - "Dessert" (1 item, $6.99)
+    source_ref: "agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  events:
+    field_id: "events_source"
+    immutable_id: "data_events_001"
+    source_type: "EXTERNAL"
+    location: "Facebook"
+    url: "https://www.facebook.com/profile.php?id=61571389349445"
+    update_method: "Facebook posts"
+    display: "Link only, no embedded events"
+    source_ref: "index.html:464-469, agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  hours:
+    field_id: "hours_source"
+    immutable_id: "data_hours_001"
+    source_type: "HARDCODED"
+    location: "index.html:47-53 (structured data), index.html:200-222 (display)"
+    update_method: "Manual HTML edit"
+    bar_hours:
+      Monday: "Closed"
+      Tuesday: "2:00 PM – 12:00 AM"
+      Wednesday: "2:00 PM – 12:00 AM"
+      Thursday: "2:00 PM – 12:00 AM"
+      Friday: "2:00 PM – 1:00 AM"
+      Saturday: "12:00 PM – 1:00 AM"
+      Sunday: "12:00 PM – 8:00 PM"
+    kitchen_hours:
+      Monday: "Closed"
+      Tuesday: "2:00 PM – 9:00 PM"
+      Wednesday: "2:00 PM – 9:00 PM"
+      Thursday: "2:00 PM – 9:00 PM"
+      Friday: "2:00 PM – 9:00 PM"
+      Saturday: "12:00 PM – 9:00 PM"
+      Sunday: "12:00 PM – 7:00 PM"
+    source_ref: "agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  pricing:
+    field_id: "pricing_source"
+    immutable_id: "data_pricing_001"
+    source_type: "COMMS_LOG"
+    location: "OPERATIONS_LOG.md:MSG-003, MSG-004"
+    status: "AWAITING_RESPONSE"
+    options:
+      option_a_monthly:
+        basic: "$149/mo"
+        with_updates: "$249/mo"
+      option_b_onetime:
+        basic: "$500 build + $79/mo"
+        with_updates: "$900 build + $129/mo"
+      domain_registration: "$12-20/yr (separate)"
+    website_display: "No pricing displayed on website (event inquiry system only)"
+    source_ref: "OPERATIONS_LOG.md, agent1.local.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+
+# DEPLOYMENT: Vercel config, domains, URLs
+DEPLOYMENT:
+  platform: "Vercel"
+  primary_domain:
+    field_id: "primary_domain"
+    immutable_id: "deployment_domain_001"
+    value: "cheeks-bar-and-grill.vercel.app"
+    source_ref: "index.html:10, vercel.json, live site"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  custom_domain:
+    field_id: "custom_domain"
+    immutable_id: "deployment_domain_002"
+    value: "cheeksbar.com"
+    source_ref: "OPERATIONS_LOG.md:MSG-003, DNS resolution"
+    confidence: "UNKNOWN"
+    status: "BLOCKED"
+    blocker_id: "BLOCK-001"
+    dns_resolution:
+      ipv4: ["104.21.14.23", "172.67.202.55"]
+      ipv6: ["2606:4700:3030::6815:e17", "2606:4700:3037::ac43:ca37"]
+    provider: "Cloudflare"
+    current_service: "Different website/service (not Vercel deployment)"
+    note: "Access status unknown, awaiting Angela response"
+    source_ref: "agent4.web.md, OPERATIONS_LOG.md"
+    last_verified: "2025-01-XX"
+  
+  live_url:
+    field_id: "live_url"
+    immutable_id: "deployment_url_001"
+    value: "https://cheeks-bar-and-grill.vercel.app"
+    source_ref: "index.html:10, multiple files, live verification"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  build_config:
+    framework_preset: "Other"
+    build_command: "None"
+    output_directory: "/"
+    runtime: "Node.js (Vercel default for serverless)"
+    source_ref: "agent3.deploy.md, README.md:125-127"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  environment_variables:
+    required:
+      - name: "ADMIN_TOKEN"
+        purpose: "Token for /api/mark-booked endpoint protection"
+        usage: "api/mark-booked.js:126"
+    optional:
+      - name: "RESEND_API_KEY"
+        purpose: "Resend API key for email functionality"
+        usage: "api/inquiry.js:111, api/mark-booked.js:68"
+      - name: "OWNER_NOTIFY_EMAILS"
+        purpose: "Comma-separated list of owner email addresses"
+        default: "cheeksbandg@gmail.com"
+        usage: "api/inquiry.js:213, api/mark-booked.js:163"
+      - name: "FROM_EMAIL"
+        purpose: "Verified sender email address in Resend"
+        default: "Cheeks Events <noreply@cheeksbar.com>"
+        usage: "api/inquiry.js:215, api/mark-booked.js:165"
+      - name: "CUSTOMER_CONFIRM"
+        purpose: "Enable customer confirmation emails"
+        value: '"1" to enable'
+        usage: "api/inquiry.js:237"
+    source_ref: "agent3.deploy.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+
+# LISTINGS: Apple Maps, Google, Yelp, Facebook (status, URLs, corrections)
+LISTINGS:
+  apple_maps:
+    field_id: "apple_maps_listing"
+    immutable_id: "listing_apple_001"
+    status: "PIN_CORRECTION_SUBMITTED"
+    source_ref: "OPERATIONS_LOG.md:AM-F3"
+    confidence: "MEDIUM"
+    last_verified: "2025-01-XX"
+    corrections:
+      - type: "old_listing_closure"
+        listing: "Nancys Jamars"
+        status: "CONFIRMED_CLOSED"
+        date: "2024-12-29"
+        confirmation: "Apple notification received (OPERATIONS_LOG.md:AM-F1, AM-F2)"
+        source: "OPERATIONS_LOG.md:AM-F1"
+      - type: "pin_location"
+        status: "SUBMITTED_PENDING"
+        date: "2025-01-XX"
+        explanation: "Address or location on map is wrong - should be where Nancys Jamars was"
+        reported_address: "158241 E Wausau Ave, Wausau, WI 54403"  # From report UI (likely error)
+        correct_address: "4011 E Wausau Ave, Wausau, WI 54403"
+        source: "OPERATIONS_LOG.md:AM-F3"
+    map_links:
+      current: "https://maps.apple.com/?q=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403"
+      status: "Uses correct address (4011)"
+    blocker_id: "BLOCK-002"
+    next_actions:
+      - "Do not submit additional duplicate pin reports"
+      - "Re-check Apple Maps periodically for pin move or confirmation"
+      - "Once pin is correct, standardize canonical map link"
+    source_ref: "OPERATIONS_LOG.md:AM-F3, AM-NEXT, agent4.web.md"
+  
+  yelp:
+    field_id: "yelp_listing"
+    immutable_id: "listing_yelp_001"
+    url: "https://www.yelp.com/biz/cheeks-bar-and-grill-wausau"
+    status: "REFERENCED"
+    verification: "BLOCKED (requires Yelp account access)"
+    source_ref: "index.html:56,467,597, schema.json:56, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  facebook:
+    field_id: "facebook_listing"
+    immutable_id: "listing_facebook_001"
+    url: "https://www.facebook.com/profile.php?id=61571389349445"
+    status: "REFERENCED"
+    verification: "BLOCKED (requires Facebook account access)"
+    source_ref: "index.html:56,467,597, schema.json:57, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  google:
+    field_id: "google_listing"
+    immutable_id: "listing_google_001"
+    status: "NOT_EXPLICITLY_REFERENCED"
+    map_links:
+      present: true
+      url: "https://www.google.com/maps/search/?api=1&query=4011%20E%20Wausau%20Ave%2C%20Wausau%2C%20WI%2054403"
+    business_profile:
+      status: "MISSING"
+      note: "No explicit Google Business Profile URL referenced"
+    verification: "BLOCKED (requires Google Business account access)"
+    source_ref: "agent4.web.md, index.html:178,565"
+    confidence: "MEDIUM"
+    last_verified: "2025-01-XX"
+
+# BUSINESS_DOCS: Operations log, comms, proposals
+BUSINESS_DOCS:
+  operations_log:
+    field_id: "operations_log"
+    immutable_id: "docs_ops_001"
+    file: "pp_cheeks/OPERATIONS_LOG.md"
+    status: "INTEGRATED"
+    source_ref: "OPERATIONS_LOG.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    contents:
+      - "Apple Maps listing/pin correction log (AM-F1, AM-F2, AM-F3, AM-QC, AM-NEXT)"
+      - "Owner comms log (MSG-001 through MSG-004, MSG-STATUS)"
+  
+  pricing_comms:
+    field_id: "pricing_communications"
+    immutable_id: "docs_pricing_001"
+    status: "AWAITING_RESPONSE"
+    source_ref: "OPERATIONS_LOG.md:MSG-001 through MSG-004"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+    messages:
+      - id: "MSG-001"
+        direction: "inbound"
+        from: "Angela"
+        content: "Hey Cody this is Angela from cheeks. Do you have an estimate on cost for a website? Thanks!"
+      - id: "MSG-002"
+        direction: "outbound"
+        to: "Angela"
+        content: "Hey Angela. Great to hear from you!"
+      - id: "MSG-003"
+        direction: "outbound"
+        to: "Angela"
+        content: "Full pricing options (Option A: $149/$249/mo, Option B: $500-900 build + $79-129/mo)"
+        includes: ["Domain access question", "Preview link offer", "Pricing options"]
+      - id: "MSG-004"
+        direction: "outbound"
+        to: "Angela"
+        content: "Clarification of pricing structure, domain access question reiterated"
+    pricing_options:
+      option_a_monthly:
+        basic: "$149/mo"
+        with_updates: "$249/mo"
+      option_b_onetime:
+        basic: "$500 build + $79/mo"
+        with_updates: "$900 build + $129/mo"
+      domain_registration: "$12-20/yr (separate)"
+    open_items:
+      - "Domain access confirmation (cheeksbar.com)"
+      - "Preview link request"
+      - "Website scope selection (simple landing page vs full multi-page)"
+    source_ref: "OPERATIONS_LOG.md:MSG-001 through MSG-004, MSG-STATUS"
+
+# SEO_CONFIG: robots, sitemap, meta tags, structured data
+SEO_CONFIG:
+  robots_txt:
+    file: "robots.txt"
+    status: "PRESENT"
+    content:
+      - "User-agent: *"
+      - "Allow: /"
+      - "Sitemap: https://cheeks-bar-and-grill.vercel.app/sitemap.xml"
+      - "Disallow: /admin.html"
+      - "Disallow: /admin.js"
+      - "Disallow: /api/sample-inquiry"
+    source_ref: "robots.txt, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  sitemap:
+    file: "sitemap.xml"
+    status: "PRESENT"
+    urls:
+      - url: "https://cheeks-bar-and-grill.vercel.app/"
+        changefreq: "weekly"
+        priority: "1.0"
+    source_ref: "sitemap.xml, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  structured_data:
+    json_ld:
+      location: "index.html:31-59"
+      file: "schema.json"
+      status: "PRESENT"
+      type: ["BarOrPub", "Restaurant"]
+    source_ref: "index.html, schema.json, agent1.local.md, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  meta_tags:
+    title: "Cheeks Bar & Grill | Wausau, WI"
+    description: "Cheeks Bar & Grill in Wausau, WI. Cold drinks, great food, and a laid-back spot to meet up. Call (715) 393-4026."
+    canonical: "https://cheeks-bar-and-grill.vercel.app/"
+    og_tags: "Present"
+    twitter_cards: "Present"
+    source_ref: "index.html:9-29, agent4.web.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+
+# SECURITY_CONFIG: Headers, protection, validation
+SECURITY_CONFIG:
+  headers:
+    source: "vercel.json"
+    status: "COMPREHENSIVE"
+    headers:
+      - "Content-Security-Policy"
+      - "X-Content-Type-Options: nosniff"
+      - "X-Frame-Options: DENY"
+      - "Referrer-Policy: strict-origin-when-cross-origin"
+      - "Permissions-Policy"
+      - "Cross-Origin-Opener-Policy: same-origin"
+      - "Cross-Origin-Resource-Policy: same-origin"
+      - "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload"
+      - "X-DNS-Prefetch-Control: off"
+      - "X-Permitted-Cross-Domain-Policies: none"
+    source_ref: "vercel.json, agent3.deploy.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+  
+  api_protection:
+    mark_booked:
+      protection: "ADMIN_TOKEN"
+      method: "Constant-time comparison"
+      source_ref: "api/mark-booked.js:28-42, agent3.deploy.md"
+    form_protection:
+      honeypot: "company field"
+      validation: "Client and server-side"
+      source_ref: "api/inquiry.js, app.js, agent1.local.md"
+    source_ref: "agent3.deploy.md"
+    confidence: "HIGH"
+    last_verified: "2025-01-XX"
+
+---
+
+**END SSOT**
