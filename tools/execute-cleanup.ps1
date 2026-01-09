@@ -3,7 +3,7 @@
 
 param(
     [switch]$DryRun = $true,
-    [switch]$Force = $false
+    [switch]$Force
 )
 
 Write-Host "=== Desktop Cleanup Execution ===" -ForegroundColor Cyan
