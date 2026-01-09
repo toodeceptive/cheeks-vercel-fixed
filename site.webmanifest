@@ -2,7 +2,7 @@
   "name": "Cheeks Bar & Grill",
   "short_name": "Cheeks",
   "start_url": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#0f1113",
   "theme_color": "#0f1113",
   "icons": [

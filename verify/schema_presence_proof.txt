@@ -3,7 +3,7 @@ SCHEMA PRESENCE PROOF
 name: Cheeks Bar and Grill
 telephone: +17153934026
 email: cheeksbandg@gmail.com
-address.streetAddress: 158241 E Wausau Ave
+address.streetAddress: 4011 E Wausau Ave
 sameAs count: 2
 openingHoursSpecification count: 6
 missing required fields: NONE
