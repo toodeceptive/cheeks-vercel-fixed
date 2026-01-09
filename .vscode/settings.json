@@ -87,5 +87,6 @@
   },
   
   // ===== PRIVACY =====
-  "telemetry.telemetryLevel": "off"
+  "telemetry.telemetryLevel": "off",
+  "json.schemaDownload.enable": true
 }
