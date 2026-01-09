@@ -62,6 +62,11 @@
       return;
     }
     const body = payload(preview);
+    
+    // Add timeout protection
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    
     try{
       const res = await fetch('/api/mark-booked', {
         method:'POST',
@@ -69,8 +74,10 @@
           'Content-Type':'application/json; charset=utf-8',
           'x-admin-token': token
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       let data = {};
       try {
         data = await res.json();
@@ -93,7 +100,17 @@
         status.textContent = 'BOOKED marked for ' + body.id + ' — email: ' + (data.email || 'n/a');
       }
     }catch(e){
-      const errorMsg = (e && e.message) ? e.message : String(e);
+      clearTimeout(timeoutId);
+      let errorMsg = 'Request failed';
+      if (e.name === 'AbortError') {
+        errorMsg = 'Request timed out. Please try again.';
+      } else if (e.name === 'TypeError' && e.message && e.message.includes('fetch')) {
+        errorMsg = 'Network error. Please check your connection.';
+      } else if (e && e.message) {
+        errorMsg = e.message;
+      } else {
+        errorMsg = String(e);
+      }
       status.textContent = 'ERROR: ' + errorMsg;
       // eslint-disable-next-line no-console
       console.error('Admin API call error:', e);
