@@ -5,7 +5,7 @@ param(
     [string]$DesktopPath = "$env:USERPROFILE\Desktop",
     [string]$ProjectRoot = $PSScriptRoot + "\..",
     [switch]$DryRun = $true,
-    [switch]$Force = $false
+    [switch]$Force
 )
 
 Write-Host "=== Delete Desktop Originals ===" -ForegroundColor Cyan
