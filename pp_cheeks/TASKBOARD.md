@@ -60,7 +60,7 @@
 - [x] Extract business data (name variants, address, phone, email, hours)
 - [x] Identify content sources (menu, events, pricing)
 - [x] Document asset inventory (images, icons, PDFs)
-**Output**: `pp_cheeks/outputs/agent1.local.md` (completed, archived)
+**Output**: `pp_cheeks/outputs/agent1.local.md` (completed, archived - see `pp_cheeks/outputs/README.md`)
 
 #### Agent 2 — Git Forensics
 **Scope**: Git history, remotes, branches, commit provenance  
@@ -70,7 +70,7 @@
 - [x] Trace evolution of key artifacts (address changes, menu updates, pricing)
 - [x] Document commit history for business data changes
 - [x] Identify provenance of conflicting values
-**Output**: `pp_cheeks/outputs/agent2.git.md` (completed, archived)
+**Output**: `pp_cheeks/outputs/agent2.git.md` (completed, archived - see `pp_cheeks/outputs/README.md`)
 
 #### Agent 3 — Deploy/Vercel Forensics
 **Scope**: `vercel.json`, build configs, env vars (names only), deployment parity  
@@ -80,7 +80,7 @@
 - [x] Catalog environment variable NAMES (no values)
 - [x] Verify build commands and runtimes
 - [x] Check deployment parity (repo vs live)
-**Output**: `pp_cheeks/outputs/agent3.deploy.md` (completed, archived)
+**Output**: `pp_cheeks/outputs/agent3.deploy.md` (completed, archived - see `pp_cheeks/outputs/README.md`)
 
 #### Agent 4 — Web Reality & SEO
 **Scope**: Live URLs, domain resolution, indexability, listings  
@@ -91,7 +91,7 @@
 - [x] Document indexability (robots.txt, sitemap.xml, meta tags)
 - [x] Check listings consistency (Apple Maps, Google, Yelp, Facebook) - as accessible
 - [x] Document canonical URL strategy
-**Output**: `pp_cheeks/outputs/agent4.web.md` (completed, archived)
+**Output**: `pp_cheeks/outputs/agent4.web.md` (completed, archived - see `pp_cheeks/outputs/README.md`)
 
 #### Agent 5 — Local Non-Repo Forensics
 **Scope**: PDFs, screenshots, proposals, QR assets, logs  
@@ -101,7 +101,7 @@
 - [x] Document QR code assets and URLs
 - [x] Extract business data from proposals/docs
 - [x] Cross-reference with operations log evidence
-**Output**: `pp_cheeks/outputs/agent5.nonrepo.md` (completed, archived)
+**Output**: `pp_cheeks/outputs/agent5.nonrepo.md` (completed, archived - see `pp_cheeks/outputs/README.md`)
 
 ### WAVE 2 — Classification & Conflicts (All Agents) ✅ COMPLETE
 - [x] Classify artifacts (PRIMARY/SECONDARY/DERIVED/STALE/BLOCKED)

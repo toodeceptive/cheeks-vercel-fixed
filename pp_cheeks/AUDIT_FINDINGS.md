@@ -29,7 +29,7 @@ Address discrepancy between codebase ("4011 E Wausau Ave") and operations log ("
 
 **Patch Reference**: PATCH-001 (update verify file if needed)  
 **Owner**: Agent 0  
-**Evidence Refs**: `agent2.git.md`, `agent4.web.md`, `agent1.local.md`, `CLASSIFICATION.md`
+**Evidence Refs**: `agent2.git.md` (archived), `agent4.web.md` (archived), `agent1.local.md` (archived), `CLASSIFICATION.md` - All findings integrated into final audit documents
 
 ---
 
@@ -51,7 +51,7 @@ BLOCKED - awaiting Angela's response about domain access.
 
 **Patch Reference**: PATCH-002  
 **Owner**: Angela (via Cody)  
-**Evidence Refs**: `OPERATIONS_LOG.md:MSG-003`, `agent4.web.md`, `BLOCKERS.md:BLOCK-001`
+**Evidence Refs**: `OPERATIONS_LOG.md:MSG-003`, `agent4.web.md` (archived), `BLOCKERS.md:BLOCK-001` - All findings integrated into final audit documents
 
 ---
 
@@ -98,7 +98,7 @@ Update QR code PDF with source parameter.
 
 **Patch Reference**: PATCH-004  
 **Owner**: Agent 0  
-**Evidence Refs**: `agent5.nonrepo.md:68-71`, `docs/reference/CRITICAL_GAPS_AND_SOLUTIONS.md`, `SSOT.cheeks.yaml:BRAND_ASSETS.qr_code`
+**Evidence Refs**: `agent5.nonrepo.md:68-71` (archived), `docs/reference/CRITICAL_GAPS_AND_SOLUTIONS.md`, `SSOT.cheeks.yaml:BRAND_ASSETS.qr_code` - All findings integrated into final audit documents
 
 ---
 
@@ -120,7 +120,7 @@ Add Google Business Profile URL to `sameAs` array if available.
 
 **Patch Reference**: PATCH-005  
 **Owner**: Agent 0  
-**Evidence Refs**: `agent4.web.md`, `index.html:55-58`, `schema.json`
+**Evidence Refs**: `agent4.web.md` (archived), `index.html:55-58`, `schema.json` - All findings integrated into final audit documents
 
 ---
 
@@ -166,7 +166,7 @@ Acceptable for current structure. Document that only indexable page is homepage.
 
 **Patch Reference**: None (acceptable)  
 **Owner**: N/A  
-**Evidence Refs**: `sitemap.xml`, `agent4.web.md`
+**Evidence Refs**: `sitemap.xml`, `agent4.web.md` (archived) - All findings integrated into final audit documents
 
 ---
 
@@ -188,7 +188,7 @@ Add staff image or remove reference. Fallback handling prevents broken display.
 
 **Patch Reference**: PATCH-007  
 **Owner**: Agent 0  
-**Evidence Refs**: `agent1.local.md`, `index.html:163`, `app.js:58-68`
+**Evidence Refs**: `agent1.local.md` (archived), `index.html:163`, `app.js:58-68` - All findings integrated into final audit documents
 
 ---
 
@@ -234,7 +234,7 @@ Cleanup recommended but not during audit (per audit rules).
 
 **Patch Reference**: None (cleanup outside audit scope)  
 **Owner**: N/A  
-**Evidence Refs**: `agent5.nonrepo.md`
+**Evidence Refs**: `agent5.nonrepo.md` (archived) - All findings integrated into final audit documents
 
 ---
 
