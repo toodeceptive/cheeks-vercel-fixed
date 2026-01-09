@@ -2,6 +2,12 @@
   "type": "module",
   "name": "cheeks-bar-and-grill",
   "version": "1.0.0",
-  "description": "Cheeks Bar & Grill event inquiry form"
+  "description": "Cheeks Bar & Grill event inquiry form",
+  "scripts": {
+    "generate-qr": "node tools/generate-qr.js"
+  },
+  "devDependencies": {
+    "qrcode": "^1.5.3"
+  }
 }
 
